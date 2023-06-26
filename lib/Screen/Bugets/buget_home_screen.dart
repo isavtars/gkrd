@@ -435,8 +435,6 @@ class Blancecard extends StatelessWidget {
   }
 }
 
-
-
 //date formatteds
 dynamic formatDate(String date) {
   final dynamic newDate = DateTime.parse(date);

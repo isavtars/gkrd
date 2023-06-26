@@ -24,28 +24,11 @@ class DrawerWidget extends StatefulWidget {
 }
 
 @override
-void initState() {
-  getData();
-}
+void initState() {}
 
-String fullName = "Bishal Gharkharch";
-String userEmail = "";
-String photoImages = "";
+DatabaseReference ref = FirebaseDatabase.instance.ref().child('Users');
 
-getData() async {
-  DatabaseReference ref = FirebaseDatabase.instance.ref().child('Users');
-  final user = FirebaseAuth.instance.currentUser!;
-
-  DatabaseReference expensesRef = ref.child(user.uid);
-
-  DataSnapshot snapshot = await expensesRef.get();
-
-  Map<dynamic, dynamic> map = snapshot.value as Map<dynamic, dynamic>;
-
-  fullName = map['fullName'];
-  userEmail = map['email'];
-  photoImages = map['profilePic'];
-}
+final user = FirebaseAuth.instance.currentUser!;
 
 class _DrawerWidgetState extends State<DrawerWidget> {
   @override
@@ -55,25 +38,53 @@ class _DrawerWidgetState extends State<DrawerWidget> {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              UserAccountsDrawerHeader(
-                accountName: Text(
-                  fullName,
-                  style: const TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
-                ),
-                accountEmail: Text(
-                  userEmail,
-                  style: const TextStyle(color: Colors.white),
-                ),
-                decoration: const BoxDecoration(color: kKarobarcolor),
-                currentAccountPicture: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CircleAvatar(
-                    backgroundColor: kKarobarcolor,
-                    // backgroundImage: NetworkImage(photoImages),
-                  ),
-                ),
-              ),
+              StreamBuilder(
+                  stream: ref.child(user.uid.toString()).onValue,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      Map<dynamic, dynamic>? map = snapshot.data?.snapshot.value
+                          as Map<dynamic, dynamic>;
+                      return UserAccountsDrawerHeader(
+                        accountName: Text(
+                          map['fullName'],
+                          style: const TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                        ),
+                        accountEmail: Text(
+                          map['email'],
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                        decoration: const BoxDecoration(color: kKarobarcolor),
+                        currentAccountPicture: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CircleAvatar(
+                            backgroundImage: NetworkImage(map['profilePic']),
+                          ),
+                        ),
+                      );
+                    } else {
+                      return UserAccountsDrawerHeader(
+                        accountName: Text(
+                          "Bibek chhetri",
+                          style: const TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                        ),
+                        accountEmail: Text(
+                          "Email.class",
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                        decoration: const BoxDecoration(color: kKarobarcolor),
+                        currentAccountPicture: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CircleAvatar(
+                            backgroundColor: kKarobarcolor,
+                            // backgroundImage: NetworkImage(photoImages),
+                          ),
+                        ),
+                      );
+                    }
+                  }),
+
               ListTile(
                 leading: const Icon(
                   Icons.business,
