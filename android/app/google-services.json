@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "484757871530",
+    "project_id": "gkrd-12ec0",
+    "storage_bucket": "gkrd-12ec0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:484757871530:android:0aef8b4bfef251807029d3",
+        "android_client_info": {
+          "package_name": "com.example.gkrd"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "484757871530-r0t26d63v9029n55rl6k272jbovvelvf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDh8vIsNjSl0LdB_3JNH-9RKsYg4SYLhs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "484757871530-r0t26d63v9029n55rl6k272jbovvelvf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "484757871530-3eemn7vs14002p6i8fbm5ci8qq0bi3cf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.gkrd.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
