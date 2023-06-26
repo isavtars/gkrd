@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../styles/color.dart';
+import '../../../styles/color.dart';
 
 AppBar incExpAppBar(String title) {
   return AppBar(

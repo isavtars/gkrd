@@ -16,7 +16,7 @@ class AuthMethods {
         await _auth
             .createUserWithEmailAndPassword(email: email, password: password)
             .then((value) {
-            //Users/uid/
+          //Users/uid/
           ref.child(value.user!.uid.toString()).set({
             'uid': value.user!.uid.toString(),
             'email': value.user!.email.toString(),
@@ -29,7 +29,7 @@ class AuthMethods {
             'profilePic': '',
           });
         });
-     
+
         res = "Succes";
       } else if (password != confirmPassword) {
         res = "Passwords does not match";
@@ -81,8 +81,6 @@ class AuthMethods {
     _auth.signOut();
   }
 
- 
-
   //sending veriafaction email
   Future<void> sendVerifactionEmail() async {
     final users = _auth.currentUser!;
@@ -113,6 +111,12 @@ class AuthMethods {
           'isAutopayOn': false,
           'targetEmergencyFunds': 0,
           'collectedEmergencyFunds': 0,
+        });
+
+        ref.child("incexp").set({
+          "incomeamount": 0,
+          "expensesamount": 0,
+          "netAmounts": 0,
         });
         res = "Success";
       }

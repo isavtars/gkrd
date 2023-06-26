@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 
 
-import '../../../../Screen/widgets/custom_buttons.dart';
-import '../../../../styles/color.dart';
+import '../../../Screen/widgets/custom_buttons.dart';
+import '../../../styles/color.dart';
 import '../resources/add_caterogies_resources.dart';
 
 class AddCaterogy extends StatefulWidget {

@@ -1,8 +1,8 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
-import '../../../styles/color.dart';
+import '../../styles/color.dart';
 
 import 'pages/add_caterogies.dart';
 import 'pages/expenss_screen.dart';
@@ -21,6 +21,24 @@ class _IncomeExpensesState extends State<IncomeExpenses> {
   List<String> dropedownmenu = ["Day", "Month", "Years"];
 
   String dropeablevalue = "Day";
+  final ref = FirebaseDatabase.instance.ref("Users");
+  late Map<dynamic, dynamic> data;
+
+  @override
+  void initState() {
+    data = {};
+    retrieveData();
+    super.initState();
+  }
+
+  void retrieveData() async {
+    DataSnapshot snapshot = await ref.child("incexp").get();
+    if (snapshot.value != null && snapshot.value is Map<dynamic, dynamic>) {
+      setState(() {
+        data = snapshot.value as Map<dynamic, dynamic>;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +106,7 @@ class _IncomeExpensesState extends State<IncomeExpenses> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          prices(prices: "10,000"),
+                          prices(prices: "${data['incomeamount']}"),
                           const SizedBox(
                             height: 3,
                           ),
@@ -103,7 +121,9 @@ class _IncomeExpensesState extends State<IncomeExpenses> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          prices(prices: "10,000", isExpenses: true),
+                          prices(
+                              prices: "${data['expensesamount']}",
+                              isExpenses: true),
                           const SizedBox(
                             height: 3,
                           ),
@@ -118,7 +138,7 @@ class _IncomeExpensesState extends State<IncomeExpenses> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          prices(prices: "10,000"),
+                          prices(prices: "${data['netAmounts']}"),
                           const SizedBox(
                             height: 3,
                           ),

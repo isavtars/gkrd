@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../styles/color.dart';
-import '../../tools/inc/exp/pages/expenss_screen.dart';
-import '../../tools/inc/exp/pages/income_add_screen.dart';
+import '../../tools/income_expenses/pages/expenss_screen.dart';
+import '../../tools/income_expenses/pages/income_add_screen.dart';
 import '../Bugets/buget_home_screen.dart';
 import '../my_wallet/wallet_screen.dart';
 import '../plan/planning_screen.dart';

@@ -1,33 +1,93 @@
-
-
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
 import 'package:nepali_date_picker/nepali_date_picker.dart' as picker;
 import 'package:nepali_date_picker/nepali_date_picker.dart';
 
-import '../../../../Screen/widgets/custom_buttons.dart';
-import '../../../../Screen/widgets/tools/dateandtime.dart';
-import '../../../../styles/color.dart';
+import '../../../Screen/widgets/custom_buttons.dart';
+import '../../../Screen/widgets/snackbar.dart';
+import '../../../Screen/widgets/tools/dateandtime.dart';
+import '../../../styles/color.dart';
+import '../incomeexp.dart';
 import '../widgets/inc_exp_appbar.dart';
 
-class IncomeADD extends StatefulWidget {
-  const IncomeADD({super.key});
+class ExpensesAdd extends StatefulWidget {
+  const ExpensesAdd({super.key});
 
   @override
-  State<IncomeADD> createState() => _IncomeADDState();
+  State<ExpensesAdd> createState() => _ExpensesAddState();
 }
 
-class _IncomeADDState extends State<IncomeADD> {
-  final List<String> incomecaterogy = ["Salary", "Foundes", "Interest"];
+class _ExpensesAddState extends State<ExpensesAdd> {
+  final List<String> expensescaterogy = ["Recharge", "Tax", "Gas", "Petrol"];
   List<String> selectedpayment = ["Cash", "Checeque", "Online"];
-  String incomecaterogyvalue = "Selected Caterogies";
+  String expensescaterogyvalue = "Selected Caterogies";
   int secectindex = 0;
   var currentdatetime = NepaliDateTime.now();
+  final amountController = TextEditingController();
+  final noteController = TextEditingController();
+
+  bool isFetching = false;
+
+  final ref = FirebaseDatabase.instance.ref("Users");
+
+  void addExpenses() async {
+    setState(() {
+      isFetching = true;
+    });
+    double? expensesAmount = double.tryParse(amountController.text);
+
+    DatabaseReference incomeRef = ref.child('incexp');
+    DataSnapshot snapshot = await incomeRef.get();
+    Map<dynamic, dynamic> map = snapshot.value as Map<dynamic, dynamic>;
+    int incomeamount = map['incomeamount'];
+    int expensesamount = map['expensesamount'];
+    int netAmounts = map['netAmounts'];
+
+    double newExpAmount = expensesamount + expensesAmount!;
+    num totalnetamount = netAmounts - expensesAmount;
+
+    print(
+        "thje toalta  l ampont  $incomeamount $expensesamount $totalnetamount ---------------");
+    await ref.child('incexp').update({
+      "expensesamount": newExpAmount,
+      "netAmounts": totalnetamount
+    }).then((value) {
+      ref.child("incexp").child("addincexp").push().set({
+        "selectedCaterogies": expensescaterogy.toString(),
+        "amount": ServerValue.increment(newExpAmount),
+        "paymentMethod": selectedpayment[secectindex].toString(),
+        "note": noteController.text,
+        "paymentDateTime": currentdatetime.toIso8601String(),
+        "transtype": "Expenses"
+      });
+      showSnackBar(text: "Sucessfully add Income", color: Colors.green);
+    }).onError((err, stackTrace) {
+      showSnackBar(text: err.toString(), color: Colors.red);
+    });
+    setState(() {
+      isFetching = true;
+    });
+    // Get.to(const IncomeExpenses());
+     Navigator.of(context).push(
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) => const IncomeExpenses(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return FadeTransition(
+            opacity: animation,
+            child: child,
+          );
+        },
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kKarobarcolor,
-      appBar: incExpAppBar("Add Income"),
+      appBar: incExpAppBar("Add Expensess"),
       body: SafeArea(child: LayoutBuilder(builder: (context, constraints) {
         return SingleChildScrollView(
           child: Container(
@@ -44,7 +104,7 @@ class _IncomeADDState extends State<IncomeADD> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 13, vertical: 5),
                   child: Text(
-                    "Income Details",
+                    "Expensess Details",
                     style: kJakartaHeading1.copyWith(
                         fontSize: 16, fontWeight: FontWeight.w600),
                   ),
@@ -93,6 +153,7 @@ class _IncomeADDState extends State<IncomeADD> {
                                   BorderRadius.all(Radius.circular(8)),
                               color: Color.fromARGB(255, 240, 238, 238)),
                           child: TextFormField(
+                            controller: amountController,
                             decoration: const InputDecoration(
                               hintText: "Rs.",
                               border: InputBorder.none,
@@ -168,6 +229,7 @@ class _IncomeADDState extends State<IncomeADD> {
                                   BorderRadius.all(Radius.circular(8)),
                               color: Color.fromARGB(255, 240, 238, 238)),
                           child: TextFormField(
+                            controller: noteController,
                             decoration: const InputDecoration(
                               hintText: "Note",
                               border: InputBorder.none,
@@ -189,6 +251,7 @@ class _IncomeADDState extends State<IncomeADD> {
                           height: 15,
                         ),
 
+                        //dateTime
                         GestureDetector(
                             onTap: () async {
                               NepaliDateTime? _selectedDateTime =
@@ -229,12 +292,18 @@ class _IncomeADDState extends State<IncomeADD> {
                         ),
 
                         CustomeBtn(
-                            btnTitleName: const Text(
-                              "Save",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 16),
-                            ),
-                            onPress: () {}),
+                            btnTitleName: isFetching
+                                ? CircularProgressIndicator(
+                                    color: Colors.white,
+                                  )
+                                : const Text(
+                                    "Save",
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 16),
+                                  ),
+                            onPress: () {
+                              addExpenses();
+                            }),
                         const SizedBox(
                           height: 20,
                         ),
@@ -260,21 +329,21 @@ class _IncomeADDState extends State<IncomeADD> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            incomecaterogyvalue,
+            expensescaterogyvalue,
             style: kJakartaHeading3.copyWith(fontSize: 15, color: Colors.grey),
           ),
           DropdownButtonHideUnderline(
             child: DropdownButton<String>(
               onChanged: (value) {
                 setState(() {
-                  incomecaterogyvalue = value!;
+                  expensescaterogyvalue = value!;
                 });
               },
               icon: const Icon(Icons.keyboard_arrow_down),
               elevation: 0,
               style: const TextStyle(fontSize: 19, color: kGreenColor),
-              items:
-                  incomecaterogy.map<DropdownMenuItem<String>>((String value) {
+              items: expensescaterogy
+                  .map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
                   child: Text(
