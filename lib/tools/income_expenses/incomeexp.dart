@@ -1,4 +1,5 @@
 import 'package:firebase_database/firebase_database.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -22,6 +23,8 @@ class _IncomeExpensesState extends State<IncomeExpenses> {
 
   String dropeablevalue = "Day";
   final ref = FirebaseDatabase.instance.ref("Users");
+  final kref =
+      FirebaseDatabase.instance.ref("Users").child('incexp').child('incexp');
   late Map<dynamic, dynamic> data;
 
   @override
@@ -183,54 +186,64 @@ class _IncomeExpensesState extends State<IncomeExpenses> {
                       ),
 
                       //Transtations List
-                      Container(
-                        width: constraints.maxWidth,
-                        height: constraints.maxHeight * 0.18,
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 2,
-                                blurRadius: 5,
-                                offset: const Offset(0, 3),
-                              ),
-                            ],
-                            color: Colors.white,
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(5))),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            //leftside
-                            Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("Recharges",
-                                      style: kJakartaBodyBold.copyWith(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w700)),
-                                  const SizedBox(
-                                    height: 8,
-                                  ),
-                                  Text("Remarks",
-                                      style: kJakartaBodyBold.copyWith(
-                                          fontSize: 14)),
-                                  const SizedBox(
-                                    height: 8,
-                                  ),
-                                  Text("FEatchDate",
-                                      style: kJakartaBodyBold.copyWith(
-                                          fontSize: 14))
-                                ]),
-                            //RightSide
 
-                            prices(prices: "10,000")
-                          ],
-                        ),
-                      ),
+                      // FirebaseAnimatedList(
+                      //     query: kref,
+                      //     itemBuilder: (context, snapshot, animation, index) {
+                      //       return Container(
+                      //         width: constraints.maxWidth,
+                      //         height: constraints.maxHeight * 0.18,
+                      //         padding: const EdgeInsets.all(10),
+                      //         decoration: BoxDecoration(
+                      //             boxShadow: [
+                      //               BoxShadow(
+                      //                 color: Colors.grey.withOpacity(0.5),
+                      //                 spreadRadius: 2,
+                      //                 blurRadius: 5,
+                      //                 offset: const Offset(0, 3),
+                      //               ),
+                      //             ],
+                      //             color: Colors.white,
+                      //             borderRadius: const BorderRadius.all(
+                      //                 Radius.circular(5))),
+                      //         child: Row(
+                      //           mainAxisAlignment:
+                      //               MainAxisAlignment.spaceBetween,
+                      //           crossAxisAlignment: CrossAxisAlignment.center,
+                      //           children: [
+                      //             //leftside
+                      //             Column(
+                      //                 crossAxisAlignment:
+                      //                     CrossAxisAlignment.start,
+                      //                 mainAxisAlignment:
+                      //                     MainAxisAlignment.center,
+                      //                 children: [
+                      //                   Text(
+                      //                       snapshot.child("amount").toString(),
+                      //                       style: kJakartaBodyBold.copyWith(
+                      //                           fontSize: 16,
+                      //                           fontWeight: FontWeight.w700)),
+                      //                   const SizedBox(
+                      //                     height: 8,
+                      //                   ),
+                      //                   Text("Remarks",
+                      //                       style: kJakartaBodyBold.copyWith(
+                      //                           fontSize: 14)),
+                      //                   const SizedBox(
+                      //                     height: 8,
+                      //                   ),
+                      //                   Text("FEatchDate",
+                      //                       style: kJakartaBodyBold.copyWith(
+                      //                           fontSize: 14))
+                      //                 ]),
+                      //             //RightSide
+
+                      //             prices(prices: "10,000")
+                      //           ],
+                      //         ),
+                      //       );
+                      //     }),
+
                       const SizedBox(
                         height: 15,
                       ),

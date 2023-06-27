@@ -54,6 +54,7 @@ dependencies:
   nepali_date_picker: ^5.3.1
   firebase_database: ^10.2.3
   provider: ^6.0.5
+  ionicons: ^0.2.2
   
 
 
