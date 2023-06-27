@@ -1,7 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
-
 import 'package:nepali_date_picker/nepali_date_picker.dart' as picker;
 import 'package:nepali_date_picker/nepali_date_picker.dart';
 
@@ -9,7 +8,8 @@ import '../../../Screen/widgets/custom_buttons.dart';
 import '../../../Screen/widgets/snackbar.dart';
 import '../../../Screen/widgets/tools/dateandtime.dart';
 import '../../../styles/color.dart';
-import '../incomeexp.dart';
+import '../../Reminders/widgets/drope_textedits.dart';
+import 'incomeexp_screens.dart';
 import '../widgets/inc_exp_appbar.dart';
 
 class ExpensesAdd extends StatefulWidget {
@@ -55,14 +55,14 @@ class _ExpensesAddState extends State<ExpensesAdd> {
       "netAmounts": totalnetamount
     }).then((value) {
       ref.child("incexp").child("addincexp").push().set({
-        "selectedCaterogies": expensescaterogy.toString(),
+        "selectedCaterogies": expensescaterogyvalue.toString(),
         "amount": ServerValue.increment(newExpAmount),
         "paymentMethod": selectedpayment[secectindex].toString(),
         "note": noteController.text,
         "paymentDateTime": currentdatetime.toIso8601String(),
-        "transtype": "Expenses"
+        "transtype": false
       });
-      showSnackBar(text: "Sucessfully add Income", color: Colors.green);
+      showSnackBar(text: "Sucessfully add Expensess", color: Colors.green);
     }).onError((err, stackTrace) {
       showSnackBar(text: err.toString(), color: Colors.red);
     });
@@ -70,9 +70,10 @@ class _ExpensesAddState extends State<ExpensesAdd> {
       isFetching = true;
     });
     // Get.to(const IncomeExpenses());
-     Navigator.of(context).push(
+    Navigator.of(context).pushReplacement(
       PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) => const IncomeExpenses(),
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const IncomeExpenses(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return FadeTransition(
             opacity: animation,
@@ -131,7 +132,14 @@ class _ExpensesAddState extends State<ExpensesAdd> {
                         const SizedBox(
                           height: 15,
                         ),
-                        dropedowncont(constraints),
+                        dropedowncont(constraints,
+                            list: expensescaterogy,
+                            value: expensescaterogyvalue,
+                            onpress: (String? value) {
+                          setState(() {
+                            expensescaterogyvalue = value!;
+                          });
+                        }),
                         const SizedBox(
                           height: 15,
                         ),
@@ -314,49 +322,6 @@ class _ExpensesAddState extends State<ExpensesAdd> {
           ),
         );
       })),
-    );
-  }
-
-  Container dropedowncont(BoxConstraints constraints) {
-    return Container(
-      width: constraints.maxWidth,
-      height: 56,
-      padding: const EdgeInsets.all(10),
-      decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(8)),
-          color: Color.fromARGB(255, 240, 238, 238)),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            expensescaterogyvalue,
-            style: kJakartaHeading3.copyWith(fontSize: 15, color: Colors.grey),
-          ),
-          DropdownButtonHideUnderline(
-            child: DropdownButton<String>(
-              onChanged: (value) {
-                setState(() {
-                  expensescaterogyvalue = value!;
-                });
-              },
-              icon: const Icon(Icons.keyboard_arrow_down),
-              elevation: 0,
-              style: const TextStyle(fontSize: 19, color: kGreenColor),
-              items: expensescaterogy
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(
-                    value,
-                    style: kJakartaHeading3.copyWith(
-                        fontSize: 15, color: kKarobarcolor),
-                  ),
-                );
-              }).toList(),
-            ),
-          )
-        ],
-      ),
     );
   }
 }

@@ -8,7 +8,8 @@ import 'package:nepali_date_picker/nepali_date_picker.dart';
 import '../../../Screen/widgets/custom_buttons.dart';
 import '../../../Screen/widgets/tools/dateandtime.dart';
 import '../../../styles/color.dart';
-import '../incomeexp.dart';
+import '../../Reminders/widgets/drope_textedits.dart';
+import 'incomeexp_screens.dart';
 import '../widgets/inc_exp_appbar.dart';
 
 class IncomeADD extends StatefulWidget {
@@ -67,7 +68,7 @@ class _IncomeADDState extends State<IncomeADD> {
         "paymentMethod": selectedpayment[secectindex].toString(),
         "note": noteController.text,
         "paymentDateTime": currentdatetime.toIso8601String(),
-        "transtype": "Income"
+        "transtype": true
       });
       showSnackBar(text: "Sucessfully add Income", color: Colors.green);
     }).onError((err, stackTrace) {
@@ -77,7 +78,7 @@ class _IncomeADDState extends State<IncomeADD> {
       isFetching = true;
     });
 
-    Navigator.of(context).push(
+    Navigator.of(context).pushReplacement(
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>
             const IncomeExpenses(),
@@ -139,7 +140,13 @@ class _IncomeADDState extends State<IncomeADD> {
                         const SizedBox(
                           height: 15,
                         ),
-                        dropedowncont(constraints),
+                        dropedowncont(constraints,
+                            list: incomecaterogy, value: incomecaterogyvalue,
+                            onpress: (String? value) {
+                          setState(() {
+                            incomecaterogyvalue = value!;
+                          });
+                        }),
                         const SizedBox(
                           height: 15,
                         ),
@@ -323,50 +330,4 @@ class _IncomeADDState extends State<IncomeADD> {
       })),
     );
   }
-
-  Container dropedowncont(BoxConstraints constraints) {
-    return Container(
-      width: constraints.maxWidth,
-      height: 56,
-      padding: const EdgeInsets.all(10),
-      decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(8)),
-          color: Color.fromARGB(255, 240, 238, 238)),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            incomecaterogyvalue,
-            style: kJakartaHeading3.copyWith(fontSize: 15, color: Colors.grey),
-          ),
-          DropdownButtonHideUnderline(
-            child: DropdownButton<String>(
-              onChanged: (value) {
-                setState(() {
-                  incomecaterogyvalue = value!;
-                });
-              },
-              icon: const Icon(Icons.keyboard_arrow_down),
-              elevation: 0,
-              style: const TextStyle(fontSize: 19, color: kGreenColor),
-              items:
-                  incomecaterogy.map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(
-                    value,
-                    style: kJakartaHeading3.copyWith(
-                        fontSize: 15, color: kKarobarcolor),
-                  ),
-                );
-              }).toList(),
-            ),
-          )
-        ],
-      ),
-    );
-  }
 }
-
-//hrloo
-

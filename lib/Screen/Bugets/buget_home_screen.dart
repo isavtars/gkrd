@@ -12,7 +12,7 @@ import '../widgets/custom_cards.dart';
 import '../widgets/null_errors.dart';
 import '../widgets/transations_card.dart';
 import 'addfunds.dart';
-// import 'transcard_models.dart';
+
 import 'package:intl/intl.dart';
 
 //homepages
