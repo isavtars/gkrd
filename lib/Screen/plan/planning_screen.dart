@@ -176,7 +176,7 @@ class _PlanningScreeenState extends State<PlanningScreeen> {
                                     height: constraints.maxHeight * 0.02,
                                   ),
                                   CustomeBtn(
-                                      btnTitleName: Text('+ Add new plan'),
+                                      btnTitleName: const Text('+ Add new plan'),
                                       onPress: () {
                                         Navigator.push(
                                             context,

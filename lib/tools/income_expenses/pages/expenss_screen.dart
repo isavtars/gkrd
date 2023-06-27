@@ -254,7 +254,7 @@ class _ExpensesAddState extends State<ExpensesAdd> {
                         //dateTime
                         GestureDetector(
                             onTap: () async {
-                              NepaliDateTime? _selectedDateTime =
+                              NepaliDateTime? selectedDateTime =
                                   await picker.showMaterialDatePicker(
                                 context: context,
                                 initialDate: NepaliDateTime.now(),
@@ -263,7 +263,7 @@ class _ExpensesAddState extends State<ExpensesAdd> {
                                 initialDatePickerMode: DatePickerMode.day,
                               );
                               setState(() {
-                                currentdatetime = _selectedDateTime!;
+                                currentdatetime = selectedDateTime!;
                               });
                             },
                             child: Container(
@@ -293,7 +293,7 @@ class _ExpensesAddState extends State<ExpensesAdd> {
 
                         CustomeBtn(
                             btnTitleName: isFetching
-                                ? CircularProgressIndicator(
+                                ? const CircularProgressIndicator(
                                     color: Colors.white,
                                   )
                                 : const Text(

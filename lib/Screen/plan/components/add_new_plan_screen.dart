@@ -187,7 +187,7 @@ class _AddNewPlanScreenState extends State<AddNewPlanScreen> {
                             height: constraints.maxHeight * 0.05,
                           ),
                           CustomeBtn(
-                              btnTitleName: Text('Continue'),
+                              btnTitleName: const Text('Continue'),
                               onPress: () {
                                 if (_formKey.currentState!.validate()) {
                                   if (investmentYears == 0.0 ||

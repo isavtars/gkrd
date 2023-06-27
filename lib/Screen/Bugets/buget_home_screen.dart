@@ -101,7 +101,7 @@ class BHomeScreen extends StatelessWidget {
                                             size: 29,
                                           ),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 20,
                                         ),
                                         Text(

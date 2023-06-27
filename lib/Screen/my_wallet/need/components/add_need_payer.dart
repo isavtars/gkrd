@@ -431,13 +431,13 @@ class _AddNeedPayerState extends State<AddNeedPayer> {
                             height: constraints.maxHeight * 0.04,
                           ),
                           CustomeBtn(
-                              btnTitleName: Text('Add Autopa)'),
+                              btnTitleName: const Text('Add Autopa)'),
                               onPress: _addAutopay),
                           SizedBox(
                             height: constraints.maxHeight * 0.04,
                           ),
                           CustomeBtn(
-                              btnTitleName: Text('Add & Pay'),
+                              btnTitleName: const Text('Add & Pay'),
                               onPress: _addAndPay),
                           SizedBox(
                             height: constraints.maxHeight * 0.04,

@@ -167,7 +167,7 @@ class _InvestmentScreenState extends State<InvestmentScreen> {
                         ),
                         CustomeBtn(
                            
-                            btnTitleName:Text('Invest'),
+                            btnTitleName:const Text('Invest'),
                             onPress: invest)
                       ],
                     ),

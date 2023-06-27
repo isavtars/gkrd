@@ -128,7 +128,7 @@ class _DashboardState extends State<Dashboard> {
                     const SizedBox(
                       height: 10,
                     ),
-                    Container(
+                    SizedBox(
                       width: constraints.maxWidth,
                       child: Row(
                         children: [
@@ -142,7 +142,7 @@ class _DashboardState extends State<Dashboard> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
                                   children: [
-                                    Icon(
+                                    const Icon(
                                       Icons.calendar_month,
                                       color: kKarobarcolor,
                                       size: 22,
@@ -172,7 +172,7 @@ class _DashboardState extends State<Dashboard> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                     children: [
-                                      Icon(
+                                      const Icon(
                                         Icons.date_range,
                                         color: kKarobarcolor,
                                         size: 22,

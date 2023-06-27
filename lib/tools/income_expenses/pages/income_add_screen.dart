@@ -277,7 +277,7 @@ class _IncomeADDState extends State<IncomeADD> {
 
                         GestureDetector(
                             onTap: () async {
-                              NepaliDateTime? _selectedDateTime =
+                              NepaliDateTime? selectedDateTime =
                                   await picker.showMaterialDatePicker(
                                 context: context,
                                 initialDate: NepaliDateTime.now(),
@@ -286,7 +286,7 @@ class _IncomeADDState extends State<IncomeADD> {
                                 initialDatePickerMode: DatePickerMode.day,
                               );
                               setState(() {
-                                currentdatetime = _selectedDateTime!;
+                                currentdatetime = selectedDateTime!;
                               });
                             },
                             child: Container(
@@ -316,10 +316,10 @@ class _IncomeADDState extends State<IncomeADD> {
 
                         CustomeBtn(
                             btnTitleName: isFetching
-                                ? CircularProgressIndicator(
+                                ? const CircularProgressIndicator(
                                     color: Colors.white,
                                   )
-                                : Text(
+                                : const Text(
                                     "Save",
                                     style: TextStyle(
                                         color: Colors.white, fontSize: 16),

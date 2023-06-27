@@ -107,7 +107,7 @@ class _AddReminderScreensState extends State<AddReminderScreens> {
                         Expanded(
                           child: GestureDetector(
                               onTap: () async {
-                                NepaliDateTime? _selectedDateTime =
+                                NepaliDateTime? selectedDateTime =
                                     await picker.showMaterialDatePicker(
                                   context: context,
                                   initialDate: NepaliDateTime.now(),
@@ -116,7 +116,7 @@ class _AddReminderScreensState extends State<AddReminderScreens> {
                                   initialDatePickerMode: DatePickerMode.day,
                                 );
                                 setState(() {
-                                  currentdatetime = _selectedDateTime!;
+                                  currentdatetime = selectedDateTime!;
                                 });
                               },
                               child: Container(
@@ -162,7 +162,7 @@ class _AddReminderScreensState extends State<AddReminderScreens> {
                                   const SizedBox(
                                     width: 10,
                                   ),
-                                  Text("$endTime")
+                                  Text(endTime)
                                 ]),
                               )),
                         ),

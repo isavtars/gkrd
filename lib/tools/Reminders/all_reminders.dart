@@ -85,7 +85,7 @@ class _AllRemindersState extends State<AllReminders>
             children: [
               // Content for Tab 1
               Container(
-                child: Text("heloo"),
+                child: const Text("heloo"),
               ),
 
               // Content for Tab 2

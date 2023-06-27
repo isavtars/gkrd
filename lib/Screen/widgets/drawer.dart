@@ -63,19 +63,19 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                         ),
                       );
                     } else {
-                      return UserAccountsDrawerHeader(
+                      return const UserAccountsDrawerHeader(
                         accountName: Text(
                           "Bibek chhetri",
-                          style: const TextStyle(
+                          style: TextStyle(
                               color: Colors.white, fontWeight: FontWeight.bold),
                         ),
                         accountEmail: Text(
                           "Email.class",
-                          style: const TextStyle(color: Colors.white),
+                          style: TextStyle(color: Colors.white),
                         ),
-                        decoration: const BoxDecoration(color: kKarobarcolor),
+                        decoration: BoxDecoration(color: kKarobarcolor),
                         currentAccountPicture: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: EdgeInsets.all(8.0),
                           child: CircleAvatar(
                             backgroundColor: kKarobarcolor,
                             // backgroundImage: NetworkImage(photoImages),
