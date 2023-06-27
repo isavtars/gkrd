@@ -204,7 +204,7 @@ class _EmergencyPlanningScreenState extends State<EmergencyPlanningScreen> {
                             height: constraints.maxHeight * 0.04,
                           ),
                           CustomeBtn(
-                              btnTitleName: Text('Activate'),
+                              btnTitleName: const Text('Activate'),
                               onPress: () {
                                 if (_formKey.currentState!.validate()) {
                                   activateEmergencyFunds();

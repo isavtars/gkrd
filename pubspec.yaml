@@ -112,3 +112,10 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+flutter_native_splash:
+  image: assets/images/splash.jpg
+  color: "42a5f5"
+  fill: true
+  android: true
+  ios: true

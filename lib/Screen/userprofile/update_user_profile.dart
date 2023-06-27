@@ -61,7 +61,7 @@ class _UserProfileUpdateState extends State<UserProfileUpdate> {
     super.initState();
   }
 
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   updateUser() async {
     setState(() {

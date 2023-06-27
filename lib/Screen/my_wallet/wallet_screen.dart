@@ -14,7 +14,7 @@ class WalletScreen extends StatefulWidget {
 
 class _WalletScreenState extends State<WalletScreen>
     with TickerProviderStateMixin {
-  late TabController _tabController = TabController(length: 3, vsync: this);
+  late final TabController _tabController = TabController(length: 3, vsync: this);
   @override
   Widget build(BuildContext context) {
     return Scaffold(

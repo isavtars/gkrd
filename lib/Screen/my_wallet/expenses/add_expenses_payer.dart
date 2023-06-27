@@ -221,7 +221,7 @@ class _AddExpensesPayerState extends State<AddExpensesPayer> {
                             height: constraints.maxHeight * 0.04,
                           ),
                           CustomeBtn(
-                              btnTitleName: Text("addandpay"),
+                              btnTitleName: const Text("addandpay"),
                               onPress: _addAndPay),
                           SizedBox(
                             height: constraints.maxHeight * 0.04,

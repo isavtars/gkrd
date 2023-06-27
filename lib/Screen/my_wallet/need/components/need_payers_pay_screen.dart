@@ -191,7 +191,7 @@ class _NeedPayersPayScreenState extends State<NeedPayersPayScreen> {
                           height: constraints.maxHeight * 0.05,
                         ),
                         CustomeBtn(
-                            btnTitleName: Text('Pay Now'), onPress: _addAndPay)
+                            btnTitleName: const Text('Pay Now'), onPress: _addAndPay)
                       ],
                     ),
                   ),

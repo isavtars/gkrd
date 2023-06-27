@@ -37,10 +37,10 @@ class _AddCaterogyState extends State<AddCaterogy>
   }
 
   getData() async {
-    FirebaseFirestore _firestore = FirebaseFirestore.instance;
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
 
     DocumentSnapshot snap =
-        await _firestore.collection("caterogies").doc('5467').get();
+        await firestore.collection("caterogies").doc('5467').get();
 
     var map = snap.data() as Map<String, dynamic>;
 
@@ -111,7 +111,7 @@ class _AddCaterogyState extends State<AddCaterogy>
             children: [
               // Content for Tab 1
               Container(
-                child: ListView(children: [
+                child: ListView(children: const [
                   ListTile(
                     title: Text("General"),
                   )

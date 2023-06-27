@@ -210,7 +210,7 @@ class _CarPlanningScreenState extends State<CarPlanningScreen> {
                           ),
                           CustomeBtn(
                            
-                            btnTitleName: Text('Activate',),
+                            btnTitleName: const Text('Activate',),
                             onPress: () {
                               if (_formKey.currentState!.validate()) {
                                 activateCarPlan();
