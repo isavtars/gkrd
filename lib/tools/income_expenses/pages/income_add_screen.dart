@@ -1,7 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
-
 import 'package:gkrd/Screen/widgets/snackbar.dart';
 import 'package:nepali_date_picker/nepali_date_picker.dart' as picker;
 import 'package:nepali_date_picker/nepali_date_picker.dart';
@@ -36,23 +35,8 @@ class _IncomeADDState extends State<IncomeADD> {
 
   @override
   void initState() {
-    // addDatatoDatabase();
     super.initState();
   }
-
-  // void addDatatoDatabase() {
-  //   ref.child("incexp").set({
-  //     "incomeamount": 0,
-  //     "expensesamount": 0,
-  //     "netAmounts": 0,
-  //   }).then((value) {
-  //     showSnackBar(text: "Sucessfully add  to databases", color: Colors.green);
-  //   }).onError((err, stackTrace) {
-  //     showSnackBar(text: err.toString(), color: Colors.red);
-  //   });
-
-  //   Navigator.pop(context);
-  // }
 
   void addIncome() async {
     setState(() {

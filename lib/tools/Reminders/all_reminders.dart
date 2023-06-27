@@ -1,3 +1,5 @@
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../styles/color.dart';
@@ -16,6 +18,9 @@ class _AllRemindersState extends State<AllReminders>
   int _currentIndex = 0;
   final List<String> cateroigtype = ["Income", "Expenses"];
   String cateroigtypevalue = "Selected type";
+
+  final ref = FirebaseDatabase.instance.ref('Users').child('reminders');
+
   @override
   void initState() {
     super.initState();
@@ -83,9 +88,20 @@ class _AllRemindersState extends State<AllReminders>
           child: TabBarView(
             controller: _tabController,
             children: [
-              // Content for Tab 1
-              Container(
-                child: Text("heloo"),
+              FirebaseAnimatedList(
+                query: ref,
+                itemBuilder: (BuildContext context, DataSnapshot snapshot,
+                    Animation<double> animation, int index) {
+                  return Container(
+                    child: Row(
+                      children: [
+                        Text('${snapshot.value is bool ? snapshot.value : ''}'),
+                        Text(
+                            '${snapshot.value is String ? snapshot.value : ''}'),
+                      ],
+                    ),
+                  );
+                },
               ),
 
               // Content for Tab 2

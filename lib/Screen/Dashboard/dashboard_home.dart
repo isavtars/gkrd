@@ -34,6 +34,7 @@ class _DashboardState extends State<Dashboard> {
       appBar: AppBar(
         backgroundColor: kKarobarcolor,
         elevation: 0,
+        title: Text("Bibek Bohora"),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: kKarobarcolor,

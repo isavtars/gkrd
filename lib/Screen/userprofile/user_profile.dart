@@ -31,6 +31,10 @@ class UserProfile extends StatelessWidget {
 
     final user = FirebaseAuth.instance.currentUser!;
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: kKarobarcolor,
+        elevation: 0,
+      ),
       body: StreamBuilder(
           stream: ref.child(user.uid.toString()).onValue,
           builder: (context, snapshot) {

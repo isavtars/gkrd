@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:gkrd/Screen/widgets/custom_buttons.dart';
 
@@ -6,7 +7,7 @@ import 'package:gkrd/tools/Reminders/widgets/drope_textedits.dart';
 import 'package:intl/intl.dart';
 import 'package:nepali_date_picker/nepali_date_picker.dart' as picker;
 import 'package:nepali_date_picker/nepali_date_picker.dart';
-
+import '../../../Screen/widgets/snackbar.dart';
 import '../../../Screen/widgets/tools/dateandtime.dart';
 
 class AddReminderScreens extends StatefulWidget {
@@ -17,7 +18,7 @@ class AddReminderScreens extends StatefulWidget {
 }
 
 class _AddReminderScreensState extends State<AddReminderScreens> {
-  final List<String> remindersTypes = ["Payments", "Alerts", "Alerts"];
+  final List<String> remindersTypes = ["Payments", "Alerts", "AlertPayment"];
   String remindersvalue = "Selected type";
 
   final List<String> remindersTimes = ["Daily", "Weekly", "Monthly"];
@@ -25,7 +26,35 @@ class _AddReminderScreensState extends State<AddReminderScreens> {
 
   var currentdatetime = NepaliDateTime.now();
   String startTime = DateFormat('hh:mm a').format(DateTime.now()).toString();
-  String endTime = "10:05 pm";
+  String endTime = DateFormat('hh:mm a').format(DateTime.now()).toString();
+  final reminderController = TextEditingController();
+
+  final ref = FirebaseDatabase.instance.ref('Users');
+
+  bool isSelected = false;
+
+//add Reminders
+  void addReminders() {
+    setState(() {
+      isSelected = true;
+    });
+    ref.child("reminders").set({
+      "remindersTypes": remindersvalue,
+      "reminderNote": reminderController.text,
+      "selectedDate": currentdatetime.toIso8601String(),
+      "selectedTime": endTime,
+      "remindersTime": remindersTimevalue,
+      "status": false
+    }).then((value) {
+      showSnackBar(text: "Sucessfully add Reminders", color: Colors.green);
+    }).onError((err, stackTrace) {
+      showSnackBar(text: err.toString(), color: Colors.red);
+    });
+    setState(() {
+      isSelected = false;
+    });
+    Navigator.pop(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +112,7 @@ class _AddReminderScreensState extends State<AddReminderScreens> {
                           borderRadius: BorderRadius.all(Radius.circular(8)),
                           color: Color.fromARGB(255, 240, 238, 238)),
                       child: TextFormField(
+                        controller: reminderController,
                         maxLines: 2,
                         decoration: const InputDecoration(
                           border: InputBorder.none,
@@ -195,12 +225,16 @@ class _AddReminderScreensState extends State<AddReminderScreens> {
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 15),
                       child: CustomeBtn(
-                          btnTitleName: Text(
-                            "Save",
-                            style:
-                                kJakartaHeading1.copyWith(color: Colors.white),
-                          ),
-                          onPress: () {}),
+                          btnTitleName: isSelected
+                              ? CircularProgressIndicator(
+                                  color: Colors.white,
+                                )
+                              : Text(
+                                  "Save",
+                                  style: kJakartaHeading1.copyWith(
+                                      color: Colors.white),
+                                ),
+                          onPress: addReminders),
                     ),
 
                     const SizedBox(
