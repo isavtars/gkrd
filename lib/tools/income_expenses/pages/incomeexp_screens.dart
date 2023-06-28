@@ -137,7 +137,7 @@ class _IncomeExpensesState extends State<IncomeExpenses> {
                                                                   'selectedCaterogies'],
                                                               note: list[index]
                                                                   ['note'],
-                                                              Prices: list[
+                                                              prices: list[
                                                                           index]
                                                                       ['amount']
                                                                   .toString(),
@@ -303,11 +303,11 @@ class IncExpTransCard extends StatelessWidget {
     required this.title,
     required this.note,
     required this.paymentDate,
-    required this.Prices,
+    required this.prices,
     required this.transtype,
   });
 
-  final String title, note, paymentDate, Prices;
+  final String title, note, paymentDate, prices;
   final bool transtype;
 
   @override
@@ -315,12 +315,12 @@ class IncExpTransCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(15),
       margin: const EdgeInsets.only(top: 10),
-      decoration: BoxDecoration(boxShadow: [
+      decoration: BoxDecoration(boxShadow: const [
         BoxShadow(
           color: Color.fromARGB(255, 235, 234, 234),
           blurRadius: 8,
           spreadRadius: 2,
-          offset: const Offset(0, 3),
+          offset: Offset(0, 3),
         )
       ], color: Colors.white, borderRadius: BorderRadius.circular(8)),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
@@ -352,7 +352,7 @@ class IncExpTransCard extends StatelessWidget {
           ],
         ),
         Text(
-          "Rs:${Prices}",
+          "Rs:$prices",
           style: kJakartaBodyBold.copyWith(
               fontSize: 14,
               color: transtype == true ? Colors.green : Colors.red),

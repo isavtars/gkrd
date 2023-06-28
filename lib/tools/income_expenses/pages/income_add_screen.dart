@@ -56,7 +56,7 @@ class _IncomeADDState extends State<IncomeADD> {
     num totalnetamount = netAmounts + incomeAmount;
 
     print(
-        "thje toalta  l ampont  $incomeamount $expensesamount $totalnetamount ---------------");
+        "$incomeamount $expensesamount $totalnetamount");
 
     await ref
         .child('incexp')

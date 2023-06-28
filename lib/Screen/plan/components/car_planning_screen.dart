@@ -59,10 +59,11 @@ class _CarPlanningScreenState extends State<CarPlanningScreen> {
     dynamic carTargetAmount = (carAmount * carTargetPercentage);
 
     if (needAvailable < carEmi) {
-      return showSnackBar(text: 'Insufficient balance', color:Colors.red);
+      showSnackBar(text: 'Insufficient balance', color: Colors.red);
     } else {
       if (carEmi > carTargetAmount) {
-        return showSnackBar(text: 'EMI is greater than target amount', color:Colors.red);
+        showSnackBar(
+            text: 'EMI is greater than target amount', color: Colors.red);
       } else {
         dynamic updatedNeedAvail = needAvailable - carEmi;
 
@@ -93,8 +94,6 @@ class _CarPlanningScreenState extends State<CarPlanningScreen> {
 
         return showSnackBar(
             text: 'EMI is greater than target amount', color: Colors.green);
-
-      
       }
     }
   }
@@ -158,7 +157,7 @@ class _CarPlanningScreenState extends State<CarPlanningScreen> {
                           SizedBox(
                             height: constraints.maxHeight * 0.02,
                           ),
-                         CustomeInputs(
+                          CustomeInputs(
                             hintText: '8,00,000',
                             icons: Icons.currency_rupee,
                             textEditingController: carAmountController,
@@ -177,7 +176,7 @@ class _CarPlanningScreenState extends State<CarPlanningScreen> {
                           SizedBox(
                             height: constraints.maxHeight * 0.02,
                           ),
-                         CustomeInputs(
+                          CustomeInputs(
                               hintText: '20%',
                               icons: Icons.calculate,
                               textEditingController: targetPercentageController,
@@ -198,7 +197,7 @@ class _CarPlanningScreenState extends State<CarPlanningScreen> {
                           SizedBox(
                             height: constraints.maxHeight * 0.02,
                           ),
-                         CustomeInputs(
+                          CustomeInputs(
                             hintText: '2000',
                             icons: Icons.calculate,
                             textEditingController: carEmiAmount,
@@ -209,8 +208,9 @@ class _CarPlanningScreenState extends State<CarPlanningScreen> {
                             height: constraints.maxHeight * 0.04,
                           ),
                           CustomeBtn(
-                           
-                            btnTitleName: const Text('Activate',),
+                            btnTitleName: const Text(
+                              'Activate',
+                            ),
                             onPress: () {
                               if (_formKey.currentState!.validate()) {
                                 activateCarPlan();

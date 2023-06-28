@@ -92,14 +92,12 @@ class _AllRemindersState extends State<AllReminders>
                 query: ref,
                 itemBuilder: (BuildContext context, DataSnapshot snapshot,
                     Animation<double> animation, int index) {
-                  return Container(
-                    child: Row(
-                      children: [
-                        Text('${snapshot.value is bool ? snapshot.value : ''}'),
-                        Text(
-                            '${snapshot.value is String ? snapshot.value : ''}'),
-                      ],
-                    ),
+                  return Row(
+                    children: [
+                      Text('${snapshot.value is bool ? snapshot.value : ''}'),
+                      Text(
+                          '${snapshot.value is String ? snapshot.value : ''}'),
+                    ],
                   );
                 },
               ),

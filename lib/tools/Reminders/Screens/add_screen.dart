@@ -226,7 +226,7 @@ class _AddReminderScreensState extends State<AddReminderScreens> {
                       margin: const EdgeInsets.symmetric(horizontal: 15),
                       child: CustomeBtn(
                           btnTitleName: isSelected
-                              ? CircularProgressIndicator(
+                              ? const CircularProgressIndicator(
                                   color: Colors.white,
                                 )
                               : Text(

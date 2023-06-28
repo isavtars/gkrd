@@ -104,7 +104,7 @@ class _EmergencyPlanningScreenState extends State<EmergencyPlanningScreen> {
         };
         splitRef.child('allTransactions').push().set(allTransaction);
 
-        return showSnackBar(text: 'Activated', color: Colors.green);
+         showSnackBar(text: 'Activated', color: Colors.green);
         // ignore: dead_code
         Navigator.pop(context);
       }
