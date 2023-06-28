@@ -8,7 +8,7 @@ import '../../styles/color.dart';
 import '../widgets/custom_buttons.dart';
 import '../widgets/custom_inputs.dart';
 import '../widgets/snackbar.dart';
-import 'buget_home_screen.dart';
+import 'budget_home_screen.dart';
 
 class AddFundsScreen extends StatefulWidget {
   const AddFundsScreen({super.key});

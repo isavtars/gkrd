@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'Screen/Bugets/buget_home_screen.dart';
+import 'Screen/Budgets/budget_home_screen.dart';
 import 'Screen/Dashboard/dashboard_home.dart';
 import 'Screen/auth/forgot_password_screen.dart';
 import 'Screen/auth/login.dart';

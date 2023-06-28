@@ -6,7 +6,7 @@ import '../../styles/color.dart';
 import '../../tools/Reminders/all_reminders.dart';
 import '../../tools/income_expenses/pages/expenss_add_screen.dart';
 import '../../tools/income_expenses/pages/income_add_screen.dart';
-import '../Bugets/buget_home_screen.dart';
+import '../Budgets/budget_home_screen.dart';
 import '../my_wallet/wallet_screen.dart';
 import '../plan/planning_screen.dart';
 import '../widgets/drawer.dart';

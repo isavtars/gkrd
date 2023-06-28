@@ -3,7 +3,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:gkrd/Screen/widgets/custom_buttons.dart';
 
-import '../../../Bugets/buget_home_screen.dart';
+import '../../../Budgets/budget_home_screen.dart';
 import '../../../widgets/snackbar.dart';
 
 class InvestmentScreen extends StatefulWidget {

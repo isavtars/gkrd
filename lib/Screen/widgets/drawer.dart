@@ -7,7 +7,7 @@ import '../../model/drawer_entry.dart';
 import '../../styles/color.dart';
 import '../../tools/emi_calculator.dart';
 import '../../tools/income_expenses/pages/incomeexp_screens.dart';
-import '../Bugets/buget_home_screen.dart';
+import '../Budgets/budget_home_screen.dart';
 import '../auth/login.dart';
 import '../my_wallet/wallet_screen.dart';
 import '../plan/planning_screen.dart';
