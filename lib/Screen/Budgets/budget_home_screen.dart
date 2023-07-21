@@ -105,7 +105,7 @@ class BHomeScreen extends StatelessWidget {
                                           width: 20,
                                         ),
                                         Text(
-                                          "GharKharcha",
+                                          "GharKharchayyyyyy",
                                           style: kJakartaHeading1.copyWith(
                                               color: Theme.of(context)
                                                   .primaryColor,
@@ -320,10 +320,10 @@ class Blancecard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Icon(
-                Icons.currency_rupee,
-                size: constraints.maxWidth * 0.08,
-                color: Colors.white,
+              Text(
+                "Rs",
+                style: TextStyle(color: Colors.white),
+                
               ),
               Text(
                 (total).toStringAsFixed(0),
