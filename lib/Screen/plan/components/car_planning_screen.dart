@@ -47,7 +47,7 @@ class _CarPlanningScreenState extends State<CarPlanningScreen> {
     DataSnapshot snapshot = await splitRef.get();
     Map<dynamic, dynamic> map = snapshot.value as Map<dynamic, dynamic>;
     dynamic needAvailable = map['needAvailableBalance'];
-    dynamic needSpendings = map['needSpendings'];
+    // dynamic needSpendings = map['needSpendings'];
 
     dynamic carAmount = double.tryParse(carAmountController.text);
     dynamic targetSplit =
@@ -92,7 +92,7 @@ class _CarPlanningScreenState extends State<CarPlanningScreen> {
         };
         splitRef.child('allTransactions').push().set(allTransacPayer);
 
-        return showSnackBar(
+         showSnackBar(
             text: 'EMI is greater than target amount', color: Colors.green);
       }
     }

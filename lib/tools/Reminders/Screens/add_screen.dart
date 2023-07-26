@@ -1,13 +1,17 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:gkrd/Screen/widgets/custom_buttons.dart';
+import 'package:gkrd/Screen/widgets/snackbar.dart';
+import 'package:gkrd/logic/reminder_task_controller.dart';
 
 import 'package:gkrd/styles/color.dart';
+import 'package:gkrd/tools/Reminders/Screens/all_reminder_screen.dart';
+import 'package:gkrd/tools/Reminders/models/task_models.dart';
+import 'package:gkrd/tools/Reminders/sql/sql_lite_helper.dart';
 import 'package:gkrd/tools/Reminders/widgets/drope_textedits.dart';
 import 'package:intl/intl.dart';
-import 'package:nepali_date_picker/nepali_date_picker.dart' as picker;
-import 'package:nepali_date_picker/nepali_date_picker.dart';
-import '../../../Screen/widgets/snackbar.dart';
+
 import '../../../Screen/widgets/tools/dateandtime.dart';
 
 class AddReminderScreens extends StatefulWidget {
@@ -24,36 +28,40 @@ class _AddReminderScreensState extends State<AddReminderScreens> {
   final List<String> remindersTimes = ["Daily", "Weekly", "Monthly"];
   String remindersTimevalue = "Selected The Time";
 
-  var currentdatetime = NepaliDateTime.now();
+  // var currentdatetime = NepaliDateTime.now();
+
+  DateTime _selectedDate = DateTime.now();
+
   String startTime = DateFormat('hh:mm a').format(DateTime.now()).toString();
-  String endTime = DateFormat('hh:mm a').format(DateTime.now()).toString();
-  final reminderController = TextEditingController();
+
+  final noteController = TextEditingController();
 
   final ref = FirebaseDatabase.instance.ref('Users');
 
   bool isSelected = false;
+  final _taskController = Get.find<TaskController>();
 
 //add Reminders
-  void addReminders() {
-    setState(() {
-      isSelected = true;
-    });
-    ref.child("reminders").set({
-      "remindersTypes": remindersvalue,
-      "reminderNote": reminderController.text,
-      "selectedDate": currentdatetime.toIso8601String(),
-      "selectedTime": endTime,
-      "remindersTime": remindersTimevalue,
-      "status": false
-    }).then((value) {
-      showSnackBar(text: "Sucessfully add Reminders", color: Colors.green);
-    }).onError((err, stackTrace) {
-      showSnackBar(text: err.toString(), color: Colors.red);
-    });
-    setState(() {
-      isSelected = false;
-    });
-    Navigator.pop(context);
+  void addReminders() async {
+    if (noteController.text.isNotEmpty) {
+      int value = await _taskController.addToTask(
+          task: ReminderTask(
+        title: remindersvalue,
+        note: noteController.text,
+        date: DateFormat.yMd().format(_selectedDate),
+        startTime: startTime,
+        reminder: remindersTimevalue,
+        isComplited: 0,
+      ));
+
+      logger
+          .d("'---------------------- $value --------------------------------");
+
+      Get.to(const AllReminders());
+      showSnackBar(text: 'Reminder added successfully', color: Colors.green);
+    } else {
+      Get.snackbar("Required all the feilds", "Error");
+    }
   }
 
   @override
@@ -112,7 +120,7 @@ class _AddReminderScreensState extends State<AddReminderScreens> {
                           borderRadius: BorderRadius.all(Radius.circular(8)),
                           color: Color.fromARGB(255, 240, 238, 238)),
                       child: TextFormField(
-                        controller: reminderController,
+                        controller: noteController,
                         maxLines: 2,
                         decoration: const InputDecoration(
                           border: InputBorder.none,
@@ -137,17 +145,22 @@ class _AddReminderScreensState extends State<AddReminderScreens> {
                         Expanded(
                           child: GestureDetector(
                               onTap: () async {
-                                NepaliDateTime? selectedDateTime =
-                                    await picker.showMaterialDatePicker(
+                                DateTime? pickerDate = await showDatePicker(
+                                  // currentDate: DateTime.now(),
+
                                   context: context,
-                                  initialDate: NepaliDateTime.now(),
-                                  firstDate: NepaliDateTime(2000),
-                                  lastDate: NepaliDateTime(2090),
-                                  initialDatePickerMode: DatePickerMode.day,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(2020),
+                                  lastDate: DateTime(2121),
                                 );
-                                setState(() {
-                                  currentdatetime = selectedDateTime!;
-                                });
+
+                                if (pickerDate != null) {
+                                  setState(() {
+                                    _selectedDate = pickerDate;
+                                  });
+                                } else {
+                                  logger.d("erroer somthings");
+                                }
                               },
                               child: Container(
                                 height: 56,
@@ -164,8 +177,7 @@ class _AddReminderScreensState extends State<AddReminderScreens> {
                                   const SizedBox(
                                     width: 2,
                                   ),
-                                  Text(
-                                      "${dateformater(dateandTime: currentdatetime)}")
+                                  Text("helooo")
                                 ]),
                               )),
                         ),
@@ -192,7 +204,7 @@ class _AddReminderScreensState extends State<AddReminderScreens> {
                                   const SizedBox(
                                     width: 10,
                                   ),
-                                  Text(endTime)
+                                  Text(startTime)
                                 ]),
                               )),
                         ),
@@ -255,7 +267,7 @@ class _AddReminderScreensState extends State<AddReminderScreens> {
       debugPrint("Time Cancled");
     } else {
       setState(() {
-        endTime = formateTime;
+        startTime = formateTime;
       });
     }
   }

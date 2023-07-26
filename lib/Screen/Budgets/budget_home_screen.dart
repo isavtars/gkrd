@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:gkrd/tools/Reminders/sql/sql_lite_helper.dart';
 
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
@@ -73,7 +75,7 @@ class BHomeScreen extends StatelessWidget {
                       map['expensesAvailableBalance'] +
                       map['savings']) as dynamic;
 
-                  print("------------${map['allTransations']}");
+                  logger.i("------------${map['allTransations']}");
 
                   return SafeArea(
                     child: LayoutBuilder(
@@ -94,7 +96,7 @@ class BHomeScreen extends StatelessWidget {
                                       children: [
                                         IconButton(
                                           onPressed: () {
-                                            Navigator.pop(context);
+                                            Get.back();
                                           },
                                           icon: const Icon(
                                             Icons.keyboard_arrow_left,
@@ -320,10 +322,9 @@ class Blancecard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 "Rs",
                 style: TextStyle(color: Colors.white),
-                
               ),
               Text(
                 (total).toStringAsFixed(0),

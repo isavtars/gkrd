@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:gkrd/Screen/widgets/custom_buttons.dart';
 import 'package:gkrd/Screen/widgets/snackbar.dart';
 
@@ -118,7 +119,7 @@ class _AddExpensesPayerState extends State<AddExpensesPayer> {
             .push()
             .set(allTransactionPayer);
 
-        Navigator.pop(context);
+        Get.back();
         showSnackBar(text: 'Insufficient Balance', color: Colors.red);
       }
     }

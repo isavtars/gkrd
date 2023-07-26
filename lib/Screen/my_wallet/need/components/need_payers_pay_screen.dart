@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:gkrd/Screen/widgets/custom_buttons.dart';
 import 'package:gkrd/Screen/widgets/custom_inputs.dart';
 
@@ -85,7 +86,7 @@ class _NeedPayersPayScreenState extends State<NeedPayersPayScreen> {
           .push()
           .set(allTransactionPayer);
 
-      Navigator.pop(context);
+      Get.back();
       showSnackBar(text: 'Insufficient Balance', color: Colors.green);
     }
   }
@@ -191,7 +192,8 @@ class _NeedPayersPayScreenState extends State<NeedPayersPayScreen> {
                           height: constraints.maxHeight * 0.05,
                         ),
                         CustomeBtn(
-                            btnTitleName: const Text('Pay Now'), onPress: _addAndPay)
+                            btnTitleName: const Text('Pay Now'),
+                            onPress: _addAndPay)
                       ],
                     ),
                   ),

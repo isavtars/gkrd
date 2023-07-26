@@ -1,7 +1,9 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:gkrd/Screen/widgets/snackbar.dart';
+import 'package:gkrd/tools/Reminders/sql/sql_lite_helper.dart';
 import 'package:nepali_date_picker/nepali_date_picker.dart' as picker;
 import 'package:nepali_date_picker/nepali_date_picker.dart';
 
@@ -55,8 +57,7 @@ class _IncomeADDState extends State<IncomeADD> {
     double newAmount = incomeamount + incomeAmount!;
     num totalnetamount = netAmounts + incomeAmount;
 
-    print(
-        "$incomeamount $expensesamount $totalnetamount");
+    logger.i("$incomeamount $expensesamount $totalnetamount");
 
     await ref
         .child('incexp')
@@ -78,18 +79,7 @@ class _IncomeADDState extends State<IncomeADD> {
       isFetching = true;
     });
 
-    Navigator.of(context).pushReplacement(
-      PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) =>
-            const IncomeExpenses(),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          return FadeTransition(
-            opacity: animation,
-            child: child,
-          );
-        },
-      ),
-    );
+    Get.off(() => const IncomeExpenses(), transition: Transition.fadeIn);
   }
 
   @override
@@ -196,7 +186,7 @@ class _IncomeADDState extends State<IncomeADD> {
                               onTap: () {
                                 setState(() {
                                   secectindex = index;
-                                  print("$secectindex ");
+                                  logger.i("$secectindex ");
                                 });
                               },
                               child: Container(

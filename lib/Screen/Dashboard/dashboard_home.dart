@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '../../styles/color.dart';
 
-import '../../tools/Reminders/all_reminders.dart';
+import '../../tools/Reminders/Screens/all_reminder_screen.dart';
 import '../../tools/income_expenses/pages/expenss_add_screen.dart';
 import '../../tools/income_expenses/pages/income_add_screen.dart';
 import '../Budgets/budget_home_screen.dart';

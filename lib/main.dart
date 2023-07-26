@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:timezone/data/latest_10y.dart';
 
 import 'Screen/Budgets/budget_home_screen.dart';
 import 'Screen/Dashboard/dashboard_home.dart';
@@ -11,12 +12,14 @@ import 'Screen/auth/register_screen.dart';
 import 'Screen/splash_screen.dart';
 
 import 'firebase_options.dart';
-import 'logic/bainding/my_bainding.dart';
+import 'logic/binding/my_binding.dart';
 import 'logic/themes_changer.dart';
 import 'styles/gharkharcha_themes.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  initializeTimeZones();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

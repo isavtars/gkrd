@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:gkrd/tools/Reminders/sql/sql_lite_helper.dart';
 
 
 
@@ -47,7 +48,7 @@ class _AddCaterogyState extends State<AddCaterogy>
     String categoryType = map['categoryType'];
     String categoryName = map['categoryName'];
 
-    print(" the categoryType name is $categoryType $categoryName");
+    logger.i(" the categoryType name is $categoryType $categoryName");
   }
 
   @override
@@ -110,13 +111,11 @@ class _AddCaterogyState extends State<AddCaterogy>
             controller: _tabController,
             children: [
               // Content for Tab 1
-              Container(
-                child: ListView(children: const [
-                  ListTile(
-                    title: Text("General"),
-                  )
-                ]),
-              ),
+              ListView(children: const [
+                ListTile(
+                  title: Text("General"),
+                )
+              ]),
 
               // Content for Tab 2
               Center(child: Text('Tab 2 Content $_currentIndex ')),

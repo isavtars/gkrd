@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 
 import '../../model/drawer_entry.dart';
 import '../../styles/color.dart';
-import '../../tools/emi_calculator.dart';
+import '../../tools/emi/emi_calculator.dart';
 import '../../tools/income_expenses/pages/incomeexp_screens.dart';
 import '../Budgets/budget_home_screen.dart';
 import '../auth/login.dart';
@@ -311,7 +311,7 @@ class EntryItem extends StatelessWidget {
 }
 
 void _showLogoutConfirmationDialog(BuildContext context) {
-  Navigator.pop(context);
+  Get.back();
   showDialog(
     context: context,
     builder: (BuildContext context) {

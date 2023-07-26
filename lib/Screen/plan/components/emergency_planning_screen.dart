@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:gkrd/Screen/widgets/custom_buttons.dart';
 import 'package:gkrd/Screen/widgets/custom_inputs.dart';
 
@@ -65,14 +66,14 @@ class _EmergencyPlanningScreenState extends State<EmergencyPlanningScreen> {
     dynamic emiAmount = double.tryParse(amountController.text);
 
     if (emiAmount > needAvail) {
-      return showSnackBar(
+      showSnackBar(
           text: 'Insufficient balance to collect emergency funds!',
           color: Colors.red);
     } else {
       double targetEmergencyFunds = ((expenses / count) * expensesMultiplier);
 
       if (emiAmount > targetEmergencyFunds) {
-        return showSnackBar(
+        showSnackBar(
             text: 'EMI is greater than target amount', color: Colors.red);
       } else {
         double updatedNeedAvail = needAvail - emiAmount;
@@ -104,9 +105,9 @@ class _EmergencyPlanningScreenState extends State<EmergencyPlanningScreen> {
         };
         splitRef.child('allTransactions').push().set(allTransaction);
 
-         showSnackBar(text: 'Activated', color: Colors.green);
+        showSnackBar(text: 'Activated', color: Colors.green);
         // ignore: dead_code
-        Navigator.pop(context);
+        Get.back();
       }
     }
   }

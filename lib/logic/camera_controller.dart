@@ -1,8 +1,8 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../styles/color.dart';
@@ -51,7 +51,7 @@ class CameraController with ChangeNotifier {
                   ListTile(
                     onTap: () {
                       pickCameraImage(context);
-                      Navigator.pop(context);
+                      Get.back();
                     },
                     leading: const Icon(
                       Icons.camera,
@@ -62,7 +62,7 @@ class CameraController with ChangeNotifier {
                   ListTile(
                     onTap: () {
                       pickGalleryImage(context);
-                      Navigator.pop(context);
+                      Get.back();
                     },
                     leading: const Icon(
                       Icons.image,

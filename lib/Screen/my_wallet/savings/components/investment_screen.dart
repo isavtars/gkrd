@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:gkrd/Screen/widgets/custom_buttons.dart';
 
 import '../../../Budgets/budget_home_screen.dart';
@@ -77,9 +78,9 @@ class _InvestmentScreenState extends State<InvestmentScreen> {
       showSnackBar(
           text: 'Please select number of years & risk capacity',
           color: Colors.green);
-
-      Navigator.pop(
-          context, MaterialPageRoute(builder: (context) => const BHomeScreen()));
+      Get.to(const BHomeScreen());
+      // Navigator.pop(
+      //     context, MaterialPageRoute(builder: (context) => const BHomeScreen()));
     } else {
       showSnackBar(
           text: 'Please select number of years & risk capacity',
@@ -166,9 +167,7 @@ class _InvestmentScreenState extends State<InvestmentScreen> {
                           height: constraints.maxHeight * 0.05,
                         ),
                         CustomeBtn(
-                           
-                            btnTitleName:const Text('Invest'),
-                            onPress: invest)
+                            btnTitleName: const Text('Invest'), onPress: invest)
                       ],
                     ),
                   ),

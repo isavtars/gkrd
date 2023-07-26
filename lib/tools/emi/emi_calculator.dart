@@ -2,18 +2,18 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import '../Screen/widgets/custom_buttons.dart';
-import '../Screen/widgets/custom_inputs.dart';
-import '../styles/color.dart';
+import '../../Screen/widgets/custom_buttons.dart';
+import '../../Screen/widgets/custom_inputs.dart';
+import '../../styles/color.dart';
 
 class EMICalculator extends StatefulWidget {
   const EMICalculator({super.key});
 
   @override
-  _EMICalculatorState createState() => _EMICalculatorState();
+  EMICalculatorState createState() => EMICalculatorState();
 }
 
-class _EMICalculatorState extends State<EMICalculator> {
+class EMICalculatorState extends State<EMICalculator> {
   TextEditingController principalController = TextEditingController();
   TextEditingController interestRateController = TextEditingController();
   TextEditingController tenureController = TextEditingController();

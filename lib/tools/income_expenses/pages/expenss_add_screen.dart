@@ -1,5 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:gkrd/tools/Reminders/sql/sql_lite_helper.dart';
 
 import 'package:nepali_date_picker/nepali_date_picker.dart' as picker;
 import 'package:nepali_date_picker/nepali_date_picker.dart';
@@ -48,7 +50,7 @@ class _ExpensesAddState extends State<ExpensesAdd> {
     double newExpAmount = expensesamount + expensesAmount!;
     num totalnetamount = netAmounts - expensesAmount;
 
-    print(
+    logger.i(
         "thje toalta  l ampont  $incomeamount $expensesamount $totalnetamount ---------------");
     await ref.child('incexp').update({
       "expensesamount": newExpAmount,
@@ -70,18 +72,7 @@ class _ExpensesAddState extends State<ExpensesAdd> {
       isFetching = true;
     });
     // Get.to(const IncomeExpenses());
-    Navigator.of(context).pushReplacement(
-      PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) =>
-            const IncomeExpenses(),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          return FadeTransition(
-            opacity: animation,
-            child: child,
-          );
-        },
-      ),
-    );
+   Get.off(() => const IncomeExpenses(), transition: Transition.fadeIn);
   }
 
   @override
@@ -189,7 +180,7 @@ class _ExpensesAddState extends State<ExpensesAdd> {
                               onTap: () {
                                 setState(() {
                                   secectindex = index;
-                                  print("$secectindex ");
+                                  logger.i("$secectindex ");
                                 });
                               },
                               child: Container(

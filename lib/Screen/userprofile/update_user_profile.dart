@@ -127,7 +127,7 @@ class _UserProfileUpdateState extends State<UserProfileUpdate> {
                         IconButton(
                             color: Colors.green,
                             onPressed: () {
-                              Navigator.pop(context);
+                              Get.back();
                             },
                             icon: Icon(Icons.keyboard_arrow_left,
                                 color: Theme.of(context).iconTheme.color,
