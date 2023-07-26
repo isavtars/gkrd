@@ -12,7 +12,6 @@ import 'package:gkrd/tools/Reminders/sql/sql_lite_helper.dart';
 import 'package:gkrd/tools/Reminders/widgets/drope_textedits.dart';
 import 'package:intl/intl.dart';
 
-import '../../../Screen/widgets/tools/dateandtime.dart';
 
 class AddReminderScreens extends StatefulWidget {
   const AddReminderScreens({super.key});
@@ -169,12 +168,12 @@ class _AddReminderScreensState extends State<AddReminderScreens> {
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(8)),
                                     color: Color.fromARGB(255, 240, 238, 238)),
-                                child: Row(children: [
-                                  const Icon(
+                                child: const Row(children: [
+                                  Icon(
                                     Icons.date_range,
                                     color: kKarobarcolor,
                                   ),
-                                  const SizedBox(
+                                  SizedBox(
                                     width: 2,
                                   ),
                                   Text("helooo")
