@@ -19,10 +19,7 @@ title STRING,
 note STRING,
 date STRING, 
 startTime STRING, 
-
 reminder STRING, 
-
-
 isComplited INTEGER, 
 createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 )

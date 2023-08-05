@@ -13,6 +13,7 @@ import 'package:gkrd/tools/Reminders/widgets/drope_textedits.dart';
 import 'package:intl/intl.dart';
 
 
+
 class AddReminderScreens extends StatefulWidget {
   const AddReminderScreens({super.key});
 
@@ -27,12 +28,9 @@ class _AddReminderScreensState extends State<AddReminderScreens> {
   final List<String> remindersTimes = ["Daily", "Weekly", "Monthly"];
   String remindersTimevalue = "Selected The Time";
 
-  // var currentdatetime = NepaliDateTime.now();
 
-  DateTime _selectedDate = DateTime.now();
-
+   DateTime _selectedDate = DateTime.now();
   String startTime = DateFormat('hh:mm a').format(DateTime.now()).toString();
-
   final noteController = TextEditingController();
 
   final ref = FirebaseDatabase.instance.ref('Users');
@@ -143,24 +141,7 @@ class _AddReminderScreensState extends State<AddReminderScreens> {
                       children: [
                         Expanded(
                           child: GestureDetector(
-                              onTap: () async {
-                                DateTime? pickerDate = await showDatePicker(
-                                  // currentDate: DateTime.now(),
-
-                                  context: context,
-                                  initialDate: DateTime.now(),
-                                  firstDate: DateTime(2020),
-                                  lastDate: DateTime(2121),
-                                );
-
-                                if (pickerDate != null) {
-                                  setState(() {
-                                    _selectedDate = pickerDate;
-                                  });
-                                } else {
-                                  logger.d("erroer somthings");
-                                }
-                              },
+                              onTap: userDatePicker,
                               child: Container(
                                 height: 56,
                                 padding: const EdgeInsets.all(5),
@@ -168,15 +149,15 @@ class _AddReminderScreensState extends State<AddReminderScreens> {
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(8)),
                                     color: Color.fromARGB(255, 240, 238, 238)),
-                                child: const Row(children: [
-                                  Icon(
+                                child:  Row(children: [
+                                  const Icon(
                                     Icons.date_range,
                                     color: kKarobarcolor,
                                   ),
-                                  SizedBox(
+                                 const  SizedBox(
                                     width: 2,
                                   ),
-                                  Text("helooo")
+                                  Text( DateFormat.yMd().format(_selectedDate))
                                 ]),
                               )),
                         ),
@@ -186,7 +167,7 @@ class _AddReminderScreensState extends State<AddReminderScreens> {
                         Expanded(
                           child: GestureDetector(
                               onTap: () async {
-                                getTimeFromUser();
+                                getTimeFromUser(isStartTime: true);
                               },
                               child: Container(
                                 height: 56,
@@ -257,16 +238,18 @@ class _AddReminderScreensState extends State<AddReminderScreens> {
         ));
   }
 
-  Future getTimeFromUser() async {
+  Future getTimeFromUser({required bool isStartTime}) async {
     var pickedTime = await getTimePicker();
+
     // ignore: use_build_context_synchronously
     String formateTime = pickedTime.format(context);
 
     if (pickedTime == null) {
-      debugPrint("Time Cancled");
-    } else {
+      logger.d("Time Cancled");
+    } else if (isStartTime == true) {
       setState(() {
         startTime = formateTime;
+        logger.d(startTime);
       });
     }
   }
@@ -279,5 +262,24 @@ class _AddReminderScreensState extends State<AddReminderScreens> {
         initialTime: TimeOfDay(
             hour: int.parse(startTime.split(':')[0]),
             minute: int.parse(startTime.split(':')[1].split(" ")[0])));
+  }
+
+  userDatePicker() async {
+    DateTime? pickerDate = await showDatePicker(
+      // currentDate: DateTime.now(),
+
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2020),
+      lastDate: DateTime(2121),
+    );
+
+    if (pickerDate != null) {
+      setState(() {
+        _selectedDate = pickerDate;
+      });
+    } else {
+      logger.d("erroer somthings");
+    }
   }
 }

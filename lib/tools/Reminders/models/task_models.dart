@@ -2,7 +2,6 @@ class ReminderTask {
   final int? id;
   final String title, date, startTime, note;
   final String reminder;
-
   final int? isComplited;
 
   ReminderTask(

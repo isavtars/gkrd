@@ -29,13 +29,16 @@ class _AllRemindersState extends State<AllReminders>
   String cateroigtypevalue = "Selected type";
 
   final ref = FirebaseDatabase.instance.ref('Users').child('reminders');
-
+  NotificationHelper notifiHelper = NotificationHelper();
   @override
   void initState() {
     super.initState();
     getsTask();
     _tabController = TabController(vsync: this, length: 2);
     _tabController.addListener(_handleTabSelection);
+    notifiHelper.initilizationsNotifications();
+    notifiHelper.requestAndroidPermissions();
+    notifiHelper.checkForNotification();
   }
 
   void _handleTabSelection() {
@@ -50,7 +53,6 @@ class _AllRemindersState extends State<AllReminders>
     await _taskController.getTasks();
   }
 
-  final notifiHelper = NotificationHelper();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,21 +116,32 @@ class _AllRemindersState extends State<AllReminders>
 
                       ReminderTask tasked = _taskController.taskList[index];
                       logger.i('${tasked.toJson()}');
-                      logger.i("Start Time: ${tasked.startTime}");
 
-                      DateTime mydate = DateFormat.jm()
-                          .parse(tasked.startTime.toString().trim());
+                     
 
-                      var myTime = DateFormat("hh:mm").format(mydate);
-                      notifiHelper.scheduledNotification(
-                          int.parse(myTime.toString().split(":")[0]),
-                          int.parse(myTime.toString().split(":")[1]),
-                          tasked);
+                      if (tasked.reminder == "Daily") {
+                        
+                        try {
+                          String timeString = tasked.startTime.toString();
+                          print(timeString +"heloooo");
+                         
+                            DateTime mydate = DateFormat("hh:mm a").parse(timeString);
 
-                      logger.i(myTime);
+                          // Extracting hours and minutes separately
+                          int hours  =mydate.hour;
+                          int minutes  =mydate.minute;
+                           logger.i("Hours: $hours, Minutes: $minutes ");
+                           notifiHelper.scheduledNotification(hours, minutes, tasked);
 
-                      notifiHelper.displayNotfications(
-                          title: "heloo ", body: "heloo santosh");
+                         
+                        } catch (e) {
+                          print("Error parsing time: $e");
+                        }
+
+                       
+
+                     
+                      }
 
                       return AnimationConfiguration.staggeredList(
                         position: index,
