@@ -93,7 +93,7 @@ class UserProfile extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(100),
                                 child: map!['profilePic'].toString() == ""
                                     ? const Icon(
-                                        Icons.person,
+                                      Icons.person,
                                         size: 90,
                                         color: kGrayTextC,
                                       )
@@ -111,32 +111,35 @@ class UserProfile extends StatelessWidget {
                         ProfileTab(
                             constraints: constraints,
                             title: 'Full Name',
-                            iconName: Icons.person,
+                            iconName: Icon(Icons.person),
                             titleValue: map['fullName']),
                         ProfileTab(
                             constraints: constraints,
                             title: 'Phone number',
-                            iconName: Icons.call,
+                            iconName: Icon(Icons.call),
                             titleValue: map['phoneNumber']),
                         ProfileTab(
                             constraints: constraints,
                             title: 'Bank account number',
-                            iconName: Icons.account_balance,
+                            iconName: Icon(Icons.account_balance),
                             titleValue: map['bankAccNumber']),
                         ProfileTab(
                             constraints: constraints,
                             title: 'KYC number',
-                            iconName: Icons.person,
+                            iconName: Icon(Icons.person),
                             titleValue: map['kyc']),
                         ProfileTab(
                             constraints: constraints,
                             title: 'Age',
-                            iconName: Icons.person,
+                            iconName: const Icon(Icons.person),
                             titleValue: map['age']),
                         ProfileTab(
                             constraints: constraints,
                             title: 'Income Range',
-                            iconName: Icons.currency_rupee,
+                            iconName:const  Padding(
+                              padding: EdgeInsets.all(6.0),
+                              child: Text("Rs.",style: TextStyle(fontSize: 20),),
+                            ),
                             titleValue: map['incomeRange']),
                         SizedBox(
                           height: constraints.maxHeight * 0.01,
@@ -246,7 +249,7 @@ class ProfileTab extends StatelessWidget {
 
   final BoxConstraints constraints;
   final String title;
-  final IconData iconName;
+  final Widget iconName;
   final String titleValue;
 
   @override
@@ -256,11 +259,7 @@ class ProfileTab extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Icon(
-              iconName,
-              color: kGrayTextC,
-              size: 25,
-            ),
+             iconName,
             SizedBox(
               width: constraints.maxWidth * 0.06,
             ),

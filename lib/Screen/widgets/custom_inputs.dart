@@ -83,7 +83,13 @@ class CustomeInputWithdrop extends StatelessWidget {
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             Row(
               children: [
-                Icon(perfix),
+                const Padding(
+                  padding:  EdgeInsets.all(8.0),
+                  child: Text("Rs.",style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w300
+                  ),),
+                ),
                 SizedBox(
                   width: SizeConfig.blockSizeHorizontal! * 4,
                 ),

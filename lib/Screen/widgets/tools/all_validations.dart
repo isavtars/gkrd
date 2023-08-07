@@ -51,9 +51,35 @@ String? checkValidAmounts(value) {
   //validations Text contents
 String? validationsTextContents(value) {
     if (value.isEmpty||value==null) {
-      return 'Please Enter Text';
+      return 'this feild is required';
     }
     return null;
   }
 
 
+///age validations
+///
+
+String? checkedAge(value) {
+    if (value.isEmpty||value==null) {
+      return 'this feild is required';
+    }else if(isValidAge(int.parse(value))==false){
+      return 'please enter valid ages';
+    }
+    return null;
+  }
+
+
+bool isValidAge(int age) {
+  // Age must be a positive number.
+  if (age <= 0) {
+    return false;
+  }
+
+  // Age should not exceed a maximum reasonable value (e.g., 150 years old).
+  if (age > 100) {
+    return false;
+  }
+
+  return true;
+}

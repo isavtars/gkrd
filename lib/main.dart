@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:gkrd/styles/color.dart';
 import 'package:timezone/data/latest_10y.dart';
 
 import 'Screen/Budgets/budget_home_screen.dart';
@@ -19,6 +21,9 @@ import 'styles/gharkharcha_themes.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   initializeTimeZones();
+ SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+  statusBarIconBrightness: Brightness.light,
+      statusBarColor: kKarobarcolor, systemNavigationBarColor: kKarobarcolor));
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,

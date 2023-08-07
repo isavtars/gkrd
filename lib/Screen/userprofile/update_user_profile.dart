@@ -12,6 +12,7 @@ import '../../styles/sizeconfig.dart';
 import '../../utils/utils.dart';
 import '../widgets/custom_buttons.dart';
 import '../widgets/custom_inputs.dart';
+import '../widgets/tools/all_validations.dart';
 // import '../widgets/snackbar.dart';
 
 class UserProfileUpdate extends StatefulWidget {
@@ -27,7 +28,7 @@ List<String> items = [
   '60K - 100K',
   'More than 100K'
 ];
-
+final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 class _UserProfileUpdateState extends State<UserProfileUpdate> {
   final fullNameController = TextEditingController();
   final phoneNumberController = TextEditingController();
@@ -64,6 +65,10 @@ class _UserProfileUpdateState extends State<UserProfileUpdate> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   updateUser() async {
+
+    if (_formKey.currentState!.validate()) {
+    // Form is valid, process the data or submit the form
+  
     setState(() {
       isLoding = true;
     });
@@ -101,6 +106,7 @@ class _UserProfileUpdateState extends State<UserProfileUpdate> {
     setState(() {
       isLoding = false;
     });
+    }
   }
 
   @override
@@ -199,6 +205,7 @@ class _UserProfileUpdateState extends State<UserProfileUpdate> {
                     //TextInputFeild
 
                     Form(
+                      key: _formKey,
                         child: Column(
                       children: [
                         CustomeInputs(
@@ -206,6 +213,7 @@ class _UserProfileUpdateState extends State<UserProfileUpdate> {
                           hintText: "fullName",
                           icons: Icons.account_box,
                           textinputTypes: TextInputType.text,
+                          validators:validationsTextContents ,
                         ),
                         SizedBox(
                           height: height * 1.4,
@@ -216,6 +224,7 @@ class _UserProfileUpdateState extends State<UserProfileUpdate> {
                           hintText: "PhoneNumber",
                           icons: Icons.phone,
                           textinputTypes: TextInputType.phone,
+                          validators: validatingPhoneNumber,
                         ),
                         SizedBox(
                           height: height * 1.4,
@@ -226,6 +235,7 @@ class _UserProfileUpdateState extends State<UserProfileUpdate> {
                           hintText: "BankAcoountNumber",
                           icons: Icons.account_balance,
                           textinputTypes: TextInputType.number,
+                          validators: checkValidAmounts,
                         ),
                         SizedBox(
                           height: height * 1.4,
@@ -235,6 +245,7 @@ class _UserProfileUpdateState extends State<UserProfileUpdate> {
                           hintText: "Kyc Number",
                           icons: Icons.account_balance,
                           textinputTypes: TextInputType.number,
+                          validators: checkValidAmounts,
                         ),
                         SizedBox(
                           height: height * 1.4,
@@ -244,6 +255,7 @@ class _UserProfileUpdateState extends State<UserProfileUpdate> {
                           hintText: "Age",
                           icons: Icons.account_circle_outlined,
                           textinputTypes: TextInputType.number,
+                          validators: checkedAge,
                         ),
                         SizedBox(
                           height: height * 1.4,
@@ -288,7 +300,7 @@ class _UserProfileUpdateState extends State<UserProfileUpdate> {
 
                         CustomeBtn(
                           btnTitleName: isLoding
-                              ? const CircularProgressIndicator()
+                              ? const CircularProgressIndicator(color: Colors.white,)
                               : Text(
                                   "Continue",
                                   style: kJakartaHeading3.copyWith(
@@ -314,5 +326,6 @@ class _UserProfileUpdateState extends State<UserProfileUpdate> {
 }
 
 //TODO FOR THIS SCREEN
-//1 VALIDATION BOTH SIDE
-//CHANGE CircularProgressIndicator() COLOR
+//validate INCOME RANGE
+
+
