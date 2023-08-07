@@ -7,6 +7,7 @@ import 'package:gkrd/Screen/widgets/custom_buttons.dart';
 import 'package:gkrd/Screen/widgets/snackbar.dart';
 
 import '../../widgets/custom_inputs.dart';
+import '../../widgets/tools/all_validations.dart';
 
 class AddExpensesPayer extends StatefulWidget {
   const AddExpensesPayer({super.key});
@@ -31,13 +32,7 @@ class _AddExpensesPayerState extends State<AddExpensesPayer> {
   final phoneNumberController = TextEditingController();
   final shortDescriptionController = TextEditingController();
 
-// Validators for form fields
-  String? _validateFormField(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'This field is required';
-    }
-    return null;
-  }
+
 
   String? _validateNumber(String? value) {
     if (value == null || value.isEmpty) {
@@ -52,6 +47,8 @@ class _AddExpensesPayerState extends State<AddExpensesPayer> {
     }
     return null;
   }
+
+ 
 
   void _addAndPay() async {
     if (_formKey.currentState!.validate()) {
@@ -169,17 +166,16 @@ class _AddExpensesPayerState extends State<AddExpensesPayer> {
                             hintText: 'Full name',
                             icons: Icons.person,
                             textEditingController: nameController,
-                            validators: _validateFormField,
+                            validators: validationsTextContents,
                             textinputTypes: TextInputType.text,
                           ),
                           SizedBox(
                             height: constraints.maxHeight * 0.02,
                           ),
-                          CustomeInputs(
-                              hintText: 'Amount',
-                              icons: Icons.currency_rupee,
+                          CustomeInputsRs(
+                              hintText: 'Amount',                             
                               textEditingController: amountController,
-                              validators: _validateNumber,
+                              validators: checkValidAmounts,
                               textinputTypes: TextInputType.number,
                               inputFormatters: [
                                 FilteringTextInputFormatter.digitsOnly
@@ -203,7 +199,7 @@ class _AddExpensesPayerState extends State<AddExpensesPayer> {
                               hintText: 'Phone number',
                               icons: Icons.call,
                               textEditingController: phoneNumberController,
-                              validators: _validateNumber,
+                              validators: validatingPhoneNumber,
                               textinputTypes: TextInputType.number,
                               inputFormatters: [
                                 FilteringTextInputFormatter.digitsOnly
@@ -215,7 +211,7 @@ class _AddExpensesPayerState extends State<AddExpensesPayer> {
                             hintText: 'Short description',
                             icons: Icons.subject,
                             textEditingController: shortDescriptionController,
-                            validators: null,
+                            validators: validationsTextContents,
                             textinputTypes: TextInputType.text,
                           ),
                           SizedBox(

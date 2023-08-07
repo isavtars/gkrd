@@ -11,6 +11,7 @@ import 'package:intl/intl.dart';
 import '../../../../logic/auto_pay.dart';
 import '../../../../styles/color.dart';
 import '../../../../styles/gharkharcha_themes.dart';
+import '../../../widgets/tools/all_validations.dart';
 
 class AddNeedPayer extends StatefulWidget {
   const AddNeedPayer({super.key});
@@ -137,6 +138,17 @@ class _AddNeedPayerState extends State<AddNeedPayer> {
     if (amount <= 0) {
       return 'Amount must be greater than 0';
     }
+    return null;
+  }
+
+  // validatingphonenumber
+  String? _validatingPhoneNumber(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'This field is required';
+    } else if (isValidNepalPhoneNumber(value) == false) {
+      return "Enter valid phonenumber";
+    }
+
     return null;
   }
 
@@ -331,9 +343,8 @@ class _AddNeedPayerState extends State<AddNeedPayer> {
                           SizedBox(
                             height: constraints.maxHeight * 0.02,
                           ),
-                          CustomeInputs(
+                          CustomeInputsRs(
                               hintText: 'Amount',
-                              icons: Icons.currency_rupee,
                               textEditingController: amountController,
                               textinputTypes: TextInputType.number,
                               validators: _validateNumber,
@@ -360,7 +371,7 @@ class _AddNeedPayerState extends State<AddNeedPayer> {
                               icons: Icons.call,
                               textEditingController: phoneNumberController,
                               textinputTypes: TextInputType.phone,
-                              validators: _validateNumber,
+                              validators: _validatingPhoneNumber,
                               inputFormatters: [
                                 FilteringTextInputFormatter.digitsOnly
                               ]),

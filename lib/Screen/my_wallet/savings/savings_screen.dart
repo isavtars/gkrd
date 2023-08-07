@@ -49,7 +49,8 @@ class _SavingsScreenState extends State<SavingsScreen> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  BalanceCard(
+                                  // GBalanceCardWallet
+                                 GBalanceCardWallet(
                                     amount: map['savings'].toStringAsFixed(0),
                                   ),
                                   SizedBox(

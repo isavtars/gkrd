@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:gkrd/tools/Reminders/sql/sql_lite_helper.dart';
+import 'package:gkrd/functions/Reminders/sql/sql_lite_helper.dart';
 
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
@@ -99,7 +99,7 @@ class BHomeScreen extends StatelessWidget {
                                             Get.back();
                                           },
                                           icon: const Icon(
-                                            Icons.keyboard_arrow_left,
+                                            Icons.arrow_back,
                                             size: 29,
                                           ),
                                         ),
@@ -107,7 +107,7 @@ class BHomeScreen extends StatelessWidget {
                                           width: 20,
                                         ),
                                         Text(
-                                          "GharKharchayyyyyy",
+                                          "GharKharcha",
                                           style: kJakartaHeading1.copyWith(
                                               color: Theme.of(context)
                                                   .primaryColor,
@@ -119,8 +119,8 @@ class BHomeScreen extends StatelessWidget {
                                     SizedBox(
                                       height: constraints.maxHeight * 0.01,
                                     ),
-                                    //blancecards
-                                    Blancecard(
+                                    //BlanceGreencard and informations all
+                                    BlanceGreencard(
                                       orientation: orientation,
                                       constraints: constraints,
                                       total: total,
@@ -144,7 +144,8 @@ class BHomeScreen extends StatelessWidget {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          CustomCard(
+                                          //Blance card for neeed Exp Saving
+                                          BlanceCard(
                                             color: Colors.red,
                                             height: 80,
                                             width: 150,
@@ -153,7 +154,7 @@ class BHomeScreen extends StatelessWidget {
                                                 map['needAvailableBalance']
                                                     .toStringAsFixed(0),
                                           ),
-                                          CustomCard(
+                                          BlanceCard(
                                             color: Colors.blue,
                                             height: 80,
                                             width: 150,
@@ -166,7 +167,7 @@ class BHomeScreen extends StatelessWidget {
                                     SizedBox(
                                       height: constraints.maxHeight * 0.02,
                                     ),
-                                    CustomCard(
+                                    BlanceCard(
                                       color: Colors.blue,
                                       height: 80,
                                       width: double.maxFinite,
@@ -236,6 +237,7 @@ class BHomeScreen extends StatelessWidget {
                                                                   itemBuilder:
                                                                       (context,
                                                                           index) {
+                                                                            //transations card
                                                                     return TransationsCards(
                                                                       dateTime: formatDate(list[index]
                                                                               [
@@ -277,8 +279,8 @@ class BHomeScreen extends StatelessWidget {
   }
 }
 
-class Blancecard extends StatelessWidget {
-  const Blancecard({
+class BlanceGreencard extends StatelessWidget {
+  const BlanceGreencard({
     super.key,
     required this.orientation,
     required this.constraints,

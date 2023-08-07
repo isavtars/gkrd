@@ -55,7 +55,8 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    BalanceCard(
+                                    //GBalanceCardWallet
+                                   GBalanceCardWallet(
                                       amount: map['expensesAvailableBalance']
                                           .toStringAsFixed(0),
                                     ),
@@ -66,7 +67,7 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        CustomCard(
+                                        BlanceCard(
                                           color: Colors.red,
                                           height: 80,
                                           width: 150,
@@ -74,7 +75,7 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
                                           cardBalance: map['expenses']
                                               .toStringAsFixed(0),
                                         ),
-                                        CustomCard(
+                                        BlanceCard(
                                           color: Colors.red,
                                           height: 80,
                                           width: 150,

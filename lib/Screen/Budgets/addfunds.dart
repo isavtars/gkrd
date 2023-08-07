@@ -4,7 +4,9 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+
 import '../../styles/color.dart';
+import '../../functions/Reminders/sql/sql_lite_helper.dart';
 import '../widgets/custom_buttons.dart';
 import '../widgets/custom_inputs.dart';
 import '../widgets/snackbar.dart';
@@ -32,9 +34,10 @@ class _AddFundsScreenState extends State<AddFundsScreen> {
   String? checkValid(value) {
     if (value.isEmpty || value == null) {
       return 'Enter amount first';
-    } else if (value == "-") {
-      return 'Enter amount first -';
-    }
+    }else if (double.parse(value) < 0) {
+      logger.i(double.parse(value));
+    return 'amount cannot negtive';
+  }
     return null;
   }
 
@@ -180,10 +183,10 @@ class _AddFundsScreenState extends State<AddFundsScreen> {
                             textAlign: TextAlign.start,
                           ),
                           SizedBox(height: constraints.maxHeight * 0.02),
-                          CustomeInputs(
+                          CustomeInputsRs(
                               textEditingController: amountController,
                               hintText: "Amount",
-                              icons: Icons.currency_rupee_outlined,
+                              
                               textinputTypes: TextInputType.number,
                               validators: checkValid,
                               inputFormatters: [

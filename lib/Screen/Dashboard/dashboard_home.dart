@@ -3,9 +3,9 @@ import 'package:get/get.dart';
 
 import '../../styles/color.dart';
 
-import '../../tools/Reminders/Screens/all_reminder_screen.dart';
-import '../../tools/income_expenses/pages/expenss_add_screen.dart';
-import '../../tools/income_expenses/pages/income_add_screen.dart';
+import '../../functions/Reminders/Screens/all_reminder_screen.dart';
+import '../../functions/income_expenses/Screen/expenss_add_screen.dart';
+import '../../functions/income_expenses/Screen/income_add_screen.dart';
 import '../Budgets/budget_home_screen.dart';
 import '../my_wallet/wallet_screen.dart';
 import '../plan/planning_screen.dart';

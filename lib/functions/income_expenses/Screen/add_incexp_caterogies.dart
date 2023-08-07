@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:gkrd/tools/Reminders/sql/sql_lite_helper.dart';
+import 'package:gkrd/functions/Reminders/sql/sql_lite_helper.dart';
 
 
 

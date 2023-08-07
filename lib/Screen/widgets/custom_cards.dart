@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class CustomCard extends StatelessWidget {
-  const CustomCard(
+class BlanceCard extends StatelessWidget {
+  const BlanceCard(
       {super.key,
       required this.height,
       required this.width,
@@ -57,10 +57,7 @@ class CustomCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Icon(
-                      Icons.currency_rupee,
-                      size: 22,
-                    ),
+                    const Text("Rs."),
                     Text(
                       cardBalance,
                       style: const TextStyle(

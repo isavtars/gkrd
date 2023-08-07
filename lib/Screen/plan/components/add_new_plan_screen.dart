@@ -6,6 +6,8 @@ import 'package:gkrd/Screen/widgets/custom_buttons.dart';
 import 'package:gkrd/Screen/widgets/custom_inputs.dart';
 import 'package:gkrd/Screen/widgets/snackbar.dart';
 
+import '../../widgets/tools/all_validations.dart';
+
 class AddNewPlanScreen extends StatefulWidget {
   const AddNewPlanScreen({super.key});
 
@@ -102,11 +104,11 @@ class _AddNewPlanScreenState extends State<AddNewPlanScreen> {
                           SizedBox(
                             height: constraints.maxHeight * 0.02,
                           ),
-                          CustomeInputs(
+                          CustomeInputsRs(
                               hintText: 'Amount',
-                              icons: Icons.currency_rupee,
+                           
                               textEditingController: amountController,
-                              validators: checkValid,
+                              validators: checkValidAmounts,
                               textinputTypes: TextInputType.number,
                               inputFormatters: [
                                 FilteringTextInputFormatter.digitsOnly
@@ -187,7 +189,10 @@ class _AddNewPlanScreenState extends State<AddNewPlanScreen> {
                             height: constraints.maxHeight * 0.05,
                           ),
                           CustomeBtn(
-                              btnTitleName: const Text('Continue'),
+                              btnTitleName: const Text('Continue',style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16
+                              ),),
                               onPress: () {
                                 if (_formKey.currentState!.validate()) {
                                   if (investmentYears == 0.0 ||

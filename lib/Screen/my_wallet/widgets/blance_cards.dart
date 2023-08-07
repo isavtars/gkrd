@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gkrd/styles/color.dart';
 
-class BalanceCard extends StatelessWidget {
-  const BalanceCard({
+class GBalanceCardWallet extends StatelessWidget {
+  const GBalanceCardWallet({
     super.key,
     required this.amount,
   });
@@ -30,11 +30,11 @@ class BalanceCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const Icon(
-                Icons.currency_rupee,
-                color: Colors.white,
-                size: 32,
-              ),
+          Text("Rs.",style: kJakartaBodyBold.copyWith(
+            fontSize: 20,
+            color: Colors.white,
+            fontWeight: FontWeight.w400
+          ),),
               Text(
                 amount,
                 style: const TextStyle(

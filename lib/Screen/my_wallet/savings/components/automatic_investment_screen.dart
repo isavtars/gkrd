@@ -6,6 +6,8 @@ import 'package:gkrd/Screen/widgets/custom_buttons.dart';
 import 'package:gkrd/Screen/widgets/custom_inputs.dart';
 import 'package:gkrd/Screen/widgets/snackbar.dart';
 
+import '../../../widgets/tools/all_validations.dart';
+
 class AutoInvestmentScreen extends StatefulWidget {
   const AutoInvestmentScreen({super.key});
 
@@ -25,12 +27,7 @@ class _AutoInvestmentScreenState extends State<AutoInvestmentScreen> {
   final user = FirebaseAuth.instance.currentUser!;
   final amountController = TextEditingController();
 
-  String? checkValid(value) {
-    if (value.isEmpty) {
-      return 'Please enter the amount';
-    }
-    return null;
-  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -153,11 +150,11 @@ class _AutoInvestmentScreenState extends State<AutoInvestmentScreen> {
                           SizedBox(
                             height: constraints.maxHeight * 0.02,
                           ),
-                          CustomeInputs(
+                          CustomeInputsRs(
                               hintText: 'Amount',
-                              icons: Icons.currency_rupee,
+                           
                               textEditingController: amountController,
-                              validators: checkValid,
+                              validators: checkValidAmounts,
                               textinputTypes: TextInputType.number,
                               inputFormatters: [
                                 FilteringTextInputFormatter.digitsOnly
@@ -166,7 +163,10 @@ class _AutoInvestmentScreenState extends State<AutoInvestmentScreen> {
                             height: constraints.maxHeight * 0.05,
                           ),
                           CustomeBtn(
-                              btnTitleName: const Text('Continue'),
+                              btnTitleName: const Text('Continue',style:TextStyle(
+                                color: Colors.white,
+                                fontSize: 16
+                              ),),
                               onPress: () {
                                 if (_formKey.currentState!.validate()) {
                                   if (investmentYears == 0.0 ||

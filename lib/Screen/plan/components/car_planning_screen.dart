@@ -7,6 +7,7 @@ import 'package:gkrd/Screen/widgets/custom_inputs.dart';
 import 'package:gkrd/Screen/widgets/snackbar.dart';
 
 import '../../../styles/color.dart';
+import '../../widgets/tools/all_validations.dart';
 
 class CarPlanningScreen extends StatefulWidget {
   const CarPlanningScreen({super.key});
@@ -140,9 +141,9 @@ class _CarPlanningScreenState extends State<CarPlanningScreen> {
                           SizedBox(
                             height: constraints.maxHeight * 0.01,
                           ),
-                          const Text(
-                            'Car planning funds are taken from need category funds at start of every month. By default 20% of original car price is the target amount and 10% is the EMI every month. however you can change the both according to your plan',
-                            style: TextStyle(color: kGrayTextC, fontSize: 16),
+                        Text(
+                        "This is taken from needs by deafualt 20% origin car prices and 10% emi every months",
+                            style: kJakartaBodyMedium.copyWith(color: kGrayTextC, fontSize: 16),
                             textAlign: TextAlign.start,
                           ),
                           SizedBox(
@@ -157,11 +158,11 @@ class _CarPlanningScreenState extends State<CarPlanningScreen> {
                           SizedBox(
                             height: constraints.maxHeight * 0.02,
                           ),
-                          CustomeInputs(
+                          CustomeInputsRs(
                             hintText: '8,00,000',
-                            icons: Icons.currency_rupee,
+                           
                             textEditingController: carAmountController,
-                            validators: _validateNumber,
+                            validators: checkValidAmounts,
                             textinputTypes: TextInputType.number,
                           ),
                           SizedBox(
@@ -210,6 +211,10 @@ class _CarPlanningScreenState extends State<CarPlanningScreen> {
                           CustomeBtn(
                             btnTitleName: const Text(
                               'Activate',
+                              style: TextStyle(
+                                fontSize: 17,
+                                color:Colors.white
+                              ),
                             ),
                             onPress: () {
                               if (_formKey.currentState!.validate()) {

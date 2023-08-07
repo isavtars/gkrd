@@ -1,44 +1,51 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:gkrd/tools/Reminders/sql/sql_lite_helper.dart';
 
+import 'package:gkrd/Screen/widgets/snackbar.dart';
+import 'package:gkrd/functions/Reminders/sql/sql_lite_helper.dart';
 import 'package:nepali_date_picker/nepali_date_picker.dart' as picker;
 import 'package:nepali_date_picker/nepali_date_picker.dart';
 
 import '../../../Screen/widgets/custom_buttons.dart';
-import '../../../Screen/widgets/snackbar.dart';
 import '../../../Screen/widgets/tools/dateandtime.dart';
 import '../../../styles/color.dart';
 import '../../Reminders/widgets/drope_textedits.dart';
 import 'incomeexp_screens.dart';
 import '../widgets/inc_exp_appbar.dart';
 
-class ExpensesAdd extends StatefulWidget {
-  const ExpensesAdd({super.key});
+class IncomeADD extends StatefulWidget {
+  const IncomeADD({super.key});
 
   @override
-  State<ExpensesAdd> createState() => _ExpensesAddState();
+  State<IncomeADD> createState() => _IncomeADDState();
 }
 
-class _ExpensesAddState extends State<ExpensesAdd> {
-  final List<String> expensescaterogy = ["Recharge", "Tax", "Gas", "Petrol"];
+class _IncomeADDState extends State<IncomeADD> {
+  final List<String> incomecaterogy = ["Salary", "Foundes", "Interest"];
   List<String> selectedpayment = ["Cash", "Checeque", "Online"];
-  String expensescaterogyvalue = "Selected Caterogies";
+  String incomecaterogyvalue = "Selected Caterogies";
   int secectindex = 0;
   var currentdatetime = NepaliDateTime.now();
+
   final amountController = TextEditingController();
   final noteController = TextEditingController();
 
+  final ref = FirebaseDatabase.instance.ref("Users");
   bool isFetching = false;
 
-  final ref = FirebaseDatabase.instance.ref("Users");
+  //add data
 
-  void addExpenses() async {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  void addIncome() async {
     setState(() {
       isFetching = true;
     });
-    double? expensesAmount = double.tryParse(amountController.text);
+    double? incomeAmount = double.tryParse(amountController.text);
 
     DatabaseReference incomeRef = ref.child('incexp');
     DataSnapshot snapshot = await incomeRef.get();
@@ -47,39 +54,39 @@ class _ExpensesAddState extends State<ExpensesAdd> {
     int expensesamount = map['expensesamount'];
     int netAmounts = map['netAmounts'];
 
-    double newExpAmount = expensesamount + expensesAmount!;
-    num totalnetamount = netAmounts - expensesAmount;
+    double newAmount = incomeamount + incomeAmount!;
+    num totalnetamount = netAmounts + incomeAmount;
 
-    logger.i(
-        "thje toalta  l ampont  $incomeamount $expensesamount $totalnetamount ---------------");
-    await ref.child('incexp').update({
-      "expensesamount": newExpAmount,
-      "netAmounts": totalnetamount
-    }).then((value) {
+    logger.i("$incomeamount $expensesamount $totalnetamount");
+
+    await ref
+        .child('incexp')
+        .update({"incomeamount": newAmount, "netAmounts": totalnetamount}).then(
+            (value) {
       ref.child("incexp").child("addincexp").push().set({
-        "selectedCaterogies": expensescaterogyvalue.toString(),
-        "amount": ServerValue.increment(newExpAmount),
+        "selectedCaterogies": incomecaterogyvalue.toString(),
+        "amount": ServerValue.increment(newAmount),
         "paymentMethod": selectedpayment[secectindex].toString(),
         "note": noteController.text,
         "paymentDateTime": currentdatetime.toIso8601String(),
-        "transtype": false
+        "transtype": true
       });
-      showSnackBar(text: "Sucessfully add Expensess", color: Colors.green);
+      showSnackBar(text: "Sucessfully add Income", color: Colors.green);
     }).onError((err, stackTrace) {
       showSnackBar(text: err.toString(), color: Colors.red);
     });
     setState(() {
       isFetching = true;
     });
-    // Get.to(const IncomeExpenses());
-   Get.off(() => const IncomeExpenses(), transition: Transition.fadeIn);
+
+    Get.off(() => const IncomeExpenses(), transition: Transition.fadeIn);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kKarobarcolor,
-      appBar: incExpAppBar("Add Expensess"),
+      appBar: incExpAppBar("Add Income"),
       body: SafeArea(child: LayoutBuilder(builder: (context, constraints) {
         return SingleChildScrollView(
           child: Container(
@@ -96,7 +103,7 @@ class _ExpensesAddState extends State<ExpensesAdd> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 13, vertical: 5),
                   child: Text(
-                    "Expensess Details",
+                    "Income Details",
                     style: kJakartaHeading1.copyWith(
                         fontSize: 16, fontWeight: FontWeight.w600),
                   ),
@@ -124,11 +131,10 @@ class _ExpensesAddState extends State<ExpensesAdd> {
                           height: 15,
                         ),
                         dropedowncont(constraints,
-                            list: expensescaterogy,
-                            value: expensescaterogyvalue,
+                            list: incomecaterogy, value: incomecaterogyvalue,
                             onpress: (String? value) {
                           setState(() {
-                            expensescaterogyvalue = value!;
+                            incomecaterogyvalue = value!;
                           });
                         }),
                         const SizedBox(
@@ -250,7 +256,6 @@ class _ExpensesAddState extends State<ExpensesAdd> {
                           height: 15,
                         ),
 
-                        //dateTime
                         GestureDetector(
                             onTap: () async {
                               NepaliDateTime? selectedDateTime =
@@ -301,7 +306,7 @@ class _ExpensesAddState extends State<ExpensesAdd> {
                                         color: Colors.white, fontSize: 16),
                                   ),
                             onPress: () {
-                              addExpenses();
+                              addIncome();
                             }),
                         const SizedBox(
                           height: 20,
@@ -316,5 +321,3 @@ class _ExpensesAddState extends State<ExpensesAdd> {
     );
   }
 }
-
-//hrloo

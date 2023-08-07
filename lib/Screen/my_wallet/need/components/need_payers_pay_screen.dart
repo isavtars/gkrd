@@ -8,6 +8,7 @@ import 'package:gkrd/Screen/widgets/custom_inputs.dart';
 
 import '../../../../styles/color.dart';
 import '../../../widgets/snackbar.dart';
+import '../../../widgets/tools/all_validations.dart';
 
 class NeedPayersPayScreen extends StatefulWidget {
   const NeedPayersPayScreen({
@@ -34,12 +35,6 @@ class _NeedPayersPayScreenState extends State<NeedPayersPayScreen> {
   final amountController = TextEditingController();
   final shortDescriptionController = TextEditingController();
 
-  String? checkValidPercentage(value) {
-    if (value.isEmpty) {
-      return 'Please enter correct value';
-    }
-    return null;
-  }
 
   void _addAndPay() async {
     if (_formKey.currentState!.validate()) {
@@ -87,7 +82,7 @@ class _NeedPayersPayScreenState extends State<NeedPayersPayScreen> {
           .set(allTransactionPayer);
 
       Get.back();
-      showSnackBar(text: 'Insufficient Balance', color: Colors.green);
+      showSnackBar(text: 'payments sucessfull', color: Colors.green);
     }
   }
 
@@ -110,6 +105,7 @@ class _NeedPayersPayScreenState extends State<NeedPayersPayScreen> {
                           'Pay Now',
                           textAlign: TextAlign.start,
                           style: TextStyle(
+                            
                               fontSize: 28, fontWeight: FontWeight.w400),
                         ),
                         SizedBox(
@@ -161,11 +157,11 @@ class _NeedPayersPayScreenState extends State<NeedPayersPayScreen> {
                         ),
                         Form(
                           key: _formKey,
-                          child: CustomeInputs(
+                          child: CustomeInputsRs(
                               hintText: 'Enter amount to pay',
-                              icons: Icons.currency_rupee,
+                           
                               textEditingController: amountController,
-                              validators: checkValidPercentage,
+                              validators:checkValidAmounts,
                               textinputTypes: TextInputType.number,
                               inputFormatters: [
                                 FilteringTextInputFormatter.digitsOnly
@@ -186,13 +182,13 @@ class _NeedPayersPayScreenState extends State<NeedPayersPayScreen> {
                           textinputTypes: TextInputType.text,
                           icons: Icons.subject,
                           textEditingController: shortDescriptionController,
-                          validators: checkValidPercentage,
+                          validators: validationsTextContents,
                         ),
                         SizedBox(
                           height: constraints.maxHeight * 0.05,
                         ),
                         CustomeBtn(
-                            btnTitleName: const Text('Pay Now'),
+                            btnTitleName: const Text('Pay Now',style: TextStyle(color: Colors.white,fontSize: 16),),
                             onPress: _addAndPay)
                       ],
                     ),

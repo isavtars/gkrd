@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:gkrd/tools/Reminders/models/task_models.dart';
-import 'package:gkrd/tools/Reminders/sql/sql_lite_helper.dart';
+import 'package:gkrd/functions/Reminders/models/task_models.dart';
+import 'package:gkrd/functions/Reminders/sql/sql_lite_helper.dart';
 
 class TaskController extends GetxController {
   var taskList = <ReminderTask>[].obs;

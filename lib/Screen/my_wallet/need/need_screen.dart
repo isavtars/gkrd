@@ -52,7 +52,8 @@ class _NeedScreenState extends State<NeedScreen> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  BalanceCard(
+                                  //GBalanceCardWallet
+                                  GBalanceCardWallet(
                                     amount: map['needAvailableBalance']
                                         .toStringAsFixed(0),
                                   ),
@@ -63,7 +64,8 @@ class _NeedScreenState extends State<NeedScreen> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      CustomCard(
+                                      //BlanceCard
+                                      BlanceCard(
                                         color: Colors.red,
                                         height: 80,
                                         width: 150,
@@ -74,7 +76,7 @@ class _NeedScreenState extends State<NeedScreen> {
                                       const SizedBox(
                                         width: 20,
                                       ),
-                                      CustomCard(
+                                      BlanceCard(
                                         color: Colors.red,
                                         height: 80,
                                         width: 150,

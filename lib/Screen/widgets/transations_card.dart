@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../../styles/color.dart';
 
+
+
+//ransations cards of budgethomwe
 class TransationsCards extends StatelessWidget {
   const TransationsCards({
     super.key,
@@ -27,7 +30,11 @@ class TransationsCards extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Icon(Icons.currency_rupee),
+             Text("Rs.",style: kjakartaHeading2.copyWith(
+              fontWeight: FontWeight.bold,
+              fontSize: 14
+
+            ),),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,

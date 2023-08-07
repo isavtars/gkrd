@@ -6,10 +6,10 @@ import 'package:gkrd/Screen/widgets/snackbar.dart';
 import 'package:gkrd/logic/reminder_task_controller.dart';
 
 import 'package:gkrd/styles/color.dart';
-import 'package:gkrd/tools/Reminders/Screens/all_reminder_screen.dart';
-import 'package:gkrd/tools/Reminders/models/task_models.dart';
-import 'package:gkrd/tools/Reminders/sql/sql_lite_helper.dart';
-import 'package:gkrd/tools/Reminders/widgets/drope_textedits.dart';
+import 'package:gkrd/functions/Reminders/Screens/all_reminder_screen.dart';
+import 'package:gkrd/functions/Reminders/models/task_models.dart';
+import 'package:gkrd/functions/Reminders/sql/sql_lite_helper.dart';
+import 'package:gkrd/functions/Reminders/widgets/drope_textedits.dart';
 import 'package:intl/intl.dart';
 
 

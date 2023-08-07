@@ -5,10 +5,10 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:gkrd/Screen/widgets/custom_buttons.dart';
 import 'package:gkrd/logic/reminder_task_controller.dart';
-import 'package:gkrd/tools/Reminders/models/task_models.dart';
-import 'package:gkrd/tools/Reminders/notifications/notifications_hepler.dart';
-import 'package:gkrd/tools/Reminders/sql/sql_lite_helper.dart';
-import 'package:gkrd/tools/Reminders/widgets/custom_snackbar.dart';
+import 'package:gkrd/functions/Reminders/models/task_models.dart';
+import 'package:gkrd/functions/Reminders/notifications/notifications_hepler.dart';
+import 'package:gkrd/functions/Reminders/sql/sql_lite_helper.dart';
+import 'package:gkrd/functions/Reminders/widgets/custom_snackbar.dart';
 import 'package:intl/intl.dart';
 
 import '../../../styles/color.dart';
@@ -117,30 +117,26 @@ class _AllRemindersState extends State<AllReminders>
                       ReminderTask tasked = _taskController.taskList[index];
                       logger.i('${tasked.toJson()}');
 
-                     
-
                       if (tasked.reminder == "Daily") {
-                        
                         try {
                           String timeString = tasked.startTime.toString();
-                          print(timeString +"heloooo");
-                         
-                            DateTime mydate = DateFormat("hh:mm a").parse(timeString);
+                           
+                          
+
+                          
+
+                          DateTime mydate =
+                              DateFormat("hh:mm a").parse(timeString);
 
                           // Extracting hours and minutes separately
-                          int hours  =mydate.hour;
-                          int minutes  =mydate.minute;
-                           logger.i("Hours: $hours, Minutes: $minutes ");
-                           notifiHelper.scheduledNotification(hours, minutes, tasked);
-
-                         
+                          int hours = mydate.hour;
+                          int minutes = mydate.minute;
+                          logger.i("Hours: $hours, Minutes: $minutes ");
+                          notifiHelper.scheduledNotification(
+                              hours, minutes, tasked);
                         } catch (e) {
-                          print("Error parsing time: $e");
+                          logger.i("Error parsing time: $e");
                         }
-
-                       
-
-                     
                       }
 
                       return AnimationConfiguration.staggeredList(

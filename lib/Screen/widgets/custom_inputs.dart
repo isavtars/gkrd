@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 import '../../styles/color.dart';
 import '../../styles/sizeconfig.dart';
 
@@ -28,7 +27,6 @@ class CustomeInputs extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(11)),
       child: TextFormField(
-        
         obscureText: credentials ? true : false,
         validator: validators,
         controller: textEditingController,
@@ -36,14 +34,15 @@ class CustomeInputs extends StatelessWidget {
         cursorColor: Theme.of(context).primaryColor,
         keyboardType: textinputTypes,
         decoration: InputDecoration(
-          
             hintStyle: const TextStyle(color: kGrayC, fontSize: 16),
             prefixIcon: Icon(
               icons,
               color: kGrayC,
               size: 20,
             ),
+          
             hintText: hintText,
+          
             hoverColor: kGreenColor,
             focusColor: kKarobarcolor,
             filled: true,
@@ -99,5 +98,55 @@ class CustomeInputWithdrop extends StatelessWidget {
             suffix
           ]),
         ));
+  }
+}
+
+
+///custome ouput input With Rs
+
+class CustomeInputsRs extends StatelessWidget {
+  const CustomeInputsRs(
+      {super.key,
+      this.textEditingController,
+      required this.hintText,
+     
+      this.validators,
+      required this.textinputTypes,
+      this.credentials = false,
+      this.inputFormatters});
+
+  final TextEditingController? textEditingController;
+  final String hintText;
+  
+  final dynamic validators;
+  final TextInputType textinputTypes;
+  final bool credentials;
+  final dynamic inputFormatters;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(11)),
+      child: TextFormField(
+        obscureText: credentials ? true : false,
+        validator: validators,
+        controller: textEditingController,
+        style: const TextStyle(color: kGrayTextC),
+        cursorColor: Theme.of(context).primaryColor,
+        keyboardType: textinputTypes,
+        decoration: InputDecoration(
+            hintStyle: const TextStyle(color: kGrayC, fontSize: 16),
+           
+            prefix:const Text ("Rs.") ,
+            hintText: hintText,
+          
+            hoverColor: kGreenColor,
+            focusColor: kKarobarcolor,
+            filled: true,
+            enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
+            focusedBorder:
+                Theme.of(context).inputDecorationTheme.focusedBorder),
+      ),
+    );
   }
 }

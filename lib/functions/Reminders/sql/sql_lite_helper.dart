@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:gkrd/tools/Reminders/models/task_models.dart';
+import 'package:gkrd/functions/Reminders/models/task_models.dart';
 import 'package:logger/logger.dart';
 import 'package:sqflite/sqflite.dart' as sql;
 import 'package:sqflite/sqflite.dart';

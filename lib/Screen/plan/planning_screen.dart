@@ -176,7 +176,11 @@ class _PlanningScreeenState extends State<PlanningScreeen> {
                                     height: constraints.maxHeight * 0.02,
                                   ),
                                   CustomeBtn(
-                                      btnTitleName: const Text('+ Add new plan'),
+                                      btnTitleName: const Text(
+                                        '+ Add new plan',
+                                        style: TextStyle(
+                                            fontSize: 17, color: Colors.white),
+                                      ),
                                       onPress: () {
                                         Navigator.push(
                                             context,
@@ -210,100 +214,106 @@ class _PlanningScreeenState extends State<PlanningScreeen> {
         });
   }
 
-  Stack planningCard(Map<dynamic, dynamic> map, textName, targetFunds,
+  Container planningCard(Map<dynamic, dynamic> map, textName, targetFunds,
       collectedFunds, comparetargetFunds, comparecollectedFunds) {
-    return Stack(children: [
-      Container(
-        height: 320,
-        decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor,
-            borderRadius: const BorderRadius.all(Radius.circular(20))),
-      ),
-      Positioned(
-        left: 35,
-        top: 25,
-        child: Text(
-          textName,
-          style: const TextStyle(
-              fontSize: 30, color: Colors.white, fontWeight: FontWeight.w500),
-        ),
-      ),
-      const Positioned(
-        left: 35,
-        top: 80,
-        child: Text(
-          'Target Amount',
-          style: TextStyle(
-              fontSize: 22, color: Colors.white, fontWeight: FontWeight.w400),
-        ),
-      ),
-      const Positioned(
-        left: 25,
-        top: 115,
-        child: Icon(
-          Icons.currency_rupee,
-          color: Colors.white,
-          size: 55,
-        ),
-      ),
-      Positioned(
-        left: 85,
-        top: 105,
-        child: Text(
-          targetFunds,
-          style: const TextStyle(
-              fontSize: 56, color: Colors.white, fontWeight: FontWeight.w600),
-        ),
-      ),
-      Positioned(
-        right: 20,
-        bottom: 15,
-        child: Text(
-          'Budgeto',
-          style: TextStyle(
-              fontSize: 22,
-              color: Colors.white.withOpacity(0.4),
-              fontWeight: FontWeight.bold),
-        ),
-      ),
-      const Positioned(
-        left: 35,
-        bottom: 110,
-        child: Text(
-          'Colllected Funds',
-          style: TextStyle(
-              fontSize: 22, color: Colors.white, fontWeight: FontWeight.w400),
-        ),
-      ),
-      const Positioned(
-        left: 25,
-        bottom: 50,
-        child: Icon(
-          Icons.currency_rupee,
-          color: Colors.white,
-          size: 55,
-        ),
-      ),
-      Positioned(
-        left: 85,
-        bottom: 45,
-        child: Text(
-          collectedFunds,
-          style: const TextStyle(
-              fontSize: 56, color: Colors.white, fontWeight: FontWeight.w600),
-        ),
-      ),
-      if (comparetargetFunds <= comparecollectedFunds)
-        const Positioned(
-          top: 30,
-          right: 25,
-          child: Icon(
-            Icons.check_circle,
-            size: 90,
-            color: Colors.white,
+    return Container(
+      height: 170,
+      width: double.infinity,
+      padding: const EdgeInsets.all(10),
+      decoration: const BoxDecoration(
+          color: kKarobarcolor,
+          borderRadius: BorderRadius.all(Radius.circular(20))),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            textName,
+            style: const TextStyle(
+                fontSize: 22, color: Colors.white, fontWeight: FontWeight.w500),
           ),
-        ),
-    ]);
+          const SizedBox(
+            height: 10,
+          ),
+
+          //targetAmount
+          Row(
+            children: [
+              Text(
+                'Target Amount',
+                style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w400),
+              ),
+              Text(
+                "Rs.",
+                style: kJakartaBodyBold.copyWith(
+                    color: Colors.white, fontSize: 20),
+              ),
+              Text(
+                targetFunds,
+                style: const TextStyle(
+                    fontSize: 20,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600),
+              ),
+            ],
+          ),
+  const SizedBox(
+            height: 10,
+          ),
+          //collected funds
+          Row(
+            children: [
+              Text(
+                'Colllected Funds',
+                style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w400),
+              ),
+              Text(
+                "Rs.",
+                style: kJakartaBodyBold.copyWith(
+                    color: Colors.white, fontSize: 20),
+              ),
+              Text(
+                collectedFunds,
+                style: const TextStyle(
+                    fontSize: 20,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600),
+              ),
+            ],
+          ),
+  const SizedBox(
+            height: 10,
+          ),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Text(
+              appsname,
+              style: TextStyle(
+                  fontSize: 22,
+                  color: Colors.white.withOpacity(0.4),
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          if (comparetargetFunds <= comparecollectedFunds)
+            const Align(
+              alignment: Alignment.bottomRight,
+              child: Icon(
+                Icons.check_circle,
+                size: 90,
+                color: Colors.white,
+              ),
+            ),
+        ],
+      ),
+    );
   }
 }
 
