@@ -113,7 +113,7 @@ class AuthMethods {
           'collectedEmergencyFunds': 0,
         });
 
-        ref.child("incexp").set({
+        ref.child(uid).child("incexp").set({
           "incomeamount": 0,
           "expensesamount": 0,
           "netAmounts": 0,

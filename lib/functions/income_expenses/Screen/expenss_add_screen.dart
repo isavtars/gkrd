@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,6 +15,8 @@ import '../../Reminders/widgets/drope_textedits.dart';
 import 'incomeexp_screens.dart';
 import '../widgets/inc_exp_appbar.dart';
 
+ final FirebaseAuth auth = FirebaseAuth.instance;
+ 
 class ExpensesAdd extends StatefulWidget {
   const ExpensesAdd({super.key});
 
@@ -32,7 +35,7 @@ class _ExpensesAddState extends State<ExpensesAdd> {
 
   bool isFetching = false;
 
-  final ref = FirebaseDatabase.instance.ref("Users");
+  final ref = FirebaseDatabase.instance.ref("Users").child(auth.currentUser!.uid);
 
   void addExpenses() async {
     setState(() {

@@ -83,3 +83,51 @@ bool isValidAge(int age) {
 
   return true;
 }
+
+
+
+///emailvalidations ui/ux
+///
+///
+String? emailValidations(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'please Enter your Email';
+    } else if (isValidEmail(value) == false) {
+      return "Enter valid EmailAddress";
+    }
+
+    return null;
+  }
+
+bool isValidEmail(String email) {
+  // Define a regular expression pattern for email validation.
+  // This regex pattern is a basic one and may not cover all edge cases.
+  final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,}$');
+
+  // Check if the email matches the pattern.
+  return emailRegex.hasMatch(email);
+}
+
+//passwordvalidations
+//uiux
+String? passwordValidations(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'please Enter you password';
+    } else if (isStrongPassword(value)==false) {
+      return "Enter Strong password passowrd";
+    }
+
+    return null;
+  }
+
+bool isStrongPassword(String password) {
+  // Define criteria for a strong password.
+  final hasUppercase = password.contains(RegExp(r'[A-Z]'));
+  final hasLowercase = password.contains(RegExp(r'[a-z]'));
+  final hasDigits = password.contains(RegExp(r'[0-9]'));
+  final hasSpecialCharacters = password.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
+  final isLongEnough = password.length >= 8;
+
+  // Check if the password meets all the criteria.
+  return hasUppercase && hasLowercase && hasDigits && hasSpecialCharacters && isLongEnough;
+}

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gkrd/Screen/widgets/tools/all_validations.dart';
 
 import '../../styles/color.dart';
 import '../../styles/sizeconfig.dart';
@@ -34,6 +35,12 @@ class _ForgetScreenState extends State<ForgotPassScreen> {
     setState(() {
       isLoading = true;
     });
+
+    if (_formKey.currentState!.validate()) {
+    // Form is valid, process the data or submit the form
+  
+
+    
     _auth
         .sendPasswordResetEmail(email: emailController.text.toString())
         .then((value) {
@@ -50,6 +57,7 @@ class _ForgetScreenState extends State<ForgotPassScreen> {
         isLoading = false;
       });
     });
+    }
   }
 
   @override
@@ -101,12 +109,7 @@ class _ForgetScreenState extends State<ForgotPassScreen> {
                         hintText: "Email",
                         icons: Icons.alternate_email,
                         textinputTypes: TextInputType.emailAddress,
-                        validators: (value) {
-                          if (value!.isEmpty) {
-                            return "Enter the email";
-                          }
-                          return null;
-                        },
+                        validators: emailValidations
                       ),
                     ),
                     SizedBox(

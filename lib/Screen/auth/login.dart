@@ -7,6 +7,7 @@ import '../../styles/color.dart';
 import '../../styles/sizeconfig.dart';
 import '../widgets/custom_buttons.dart';
 import '../widgets/custom_inputs.dart';
+import '../widgets/tools/all_validations.dart';
 // import '../widgets/snackbar.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -112,12 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               hintText: "Email",
                               icons: Icons.alternate_email,
                               textinputTypes: TextInputType.emailAddress,
-                              validators: (value) {
-                                if (value!.isEmpty) {
-                                  return "Enter The email";
-                                }
-                                return null;
-                              },
+                              validators: emailValidations
                             ),
                             SizedBox(
                               height: SizeConfig.blockSizeVertical! * 2,

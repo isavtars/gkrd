@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 import 'package:flutter/material.dart';
@@ -10,7 +11,7 @@ import '../../Reminders/widgets/drope_textedits.dart';
 import 'add_incexp_caterogies.dart';
 import 'expenss_add_screen.dart';
 import 'income_add_screen.dart';
-
+ final FirebaseAuth auth = FirebaseAuth.instance;
 class IncomeExpenses extends StatefulWidget {
   const IncomeExpenses({super.key});
 
@@ -23,7 +24,7 @@ class _IncomeExpensesState extends State<IncomeExpenses> {
 
   String dropeablevalue = "Day";
 
-  DatabaseReference sref = FirebaseDatabase.instance.ref().child('Users');
+  DatabaseReference sref = FirebaseDatabase.instance.ref().child('Users').child(auth.currentUser!.uid);
 
   @override
   Widget build(BuildContext context) {

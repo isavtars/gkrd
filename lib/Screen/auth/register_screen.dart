@@ -7,6 +7,7 @@ import '../../styles/sizeconfig.dart';
 import '../widgets/custom_buttons.dart';
 import '../widgets/custom_inputs.dart';
 // import '../widgets/snackbar.dart';
+import '../widgets/tools/all_validations.dart';
 import 'verifiedemail.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -127,23 +128,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             icons: Icons.alternate_email,
                             textinputTypes: TextInputType.emailAddress,
                             credentials: false,
-                            validators: (value) {
-                              if (value!.isEmpty) {
-                                return "Email is required to proceed";
-                              }
-                              return null;
-                            },
+                            validators: emailValidations
                           ),
                           SizedBox(
                             height: SizeConfig.blockSizeVertical! * 1.8,
                           ),
                           CustomeInputs(
-                            validators: (value) {
-                              if (value!.isEmpty) {
-                                return "You left the password field blank";
-                              }
-                              return null;
-                            },
+                            validators: passwordValidations,
                             textinputTypes: TextInputType.text,
                             textEditingController: passwordController,
                             hintText: "Password",
@@ -188,7 +179,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     CustomeBtn(
                       btnTitleName: isLodding
                           ? const CircularProgressIndicator()
-                          : const Text("Continue"),
+                          : const Text("Continue",style: TextStyle(color: Colors.white),),
                       onPress: signUsers,
                     ),
                     SizedBox(
