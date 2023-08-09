@@ -7,7 +7,7 @@ import 'package:gkrd/styles/color.dart';
 import 'package:timezone/data/latest_10y.dart';
 
 import 'Screen/Budgets/budget_home_screen.dart';
-import 'Screen/Dashboard/dashboard_home.dart';
+import 'Screen/Dashboard/dashboard_screen.dart';
 import 'Screen/auth/forgot_password_screen.dart';
 import 'Screen/auth/login.dart';
 import 'Screen/auth/register_screen.dart';

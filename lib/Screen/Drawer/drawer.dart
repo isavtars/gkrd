@@ -107,6 +107,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                 title: const Text('Home'),
                 onTap: () {
                   Get.to(const BHomeScreen());
+                  Navigator.of(context);
                 },
               ),
               ListTile(
@@ -117,6 +118,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                 title: const Text('Wallet'),
                 onTap: () {
                   Get.to(const WalletScreen());
+                   Navigator.of(context);
                 },
               ),
               ListTile(
@@ -126,7 +128,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                 ),
                 title: const Text('Planning'),
                 onTap: () {
-                  Get.to(const PlanningScreeen());
+                  Get.off(const PlanningScreeen());
                 },
               ),
 
@@ -138,7 +140,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                 ),
                 title: const Text('Calculate EMI'),
                 onTap: () {
-                  Get.to(const EMICalculator());
+                  Get.off(const EMICalculator());
                 },
               ),
 
@@ -159,7 +161,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                 ),
                 title: const Text('Income/Expenses'),
                 onTap: () {
-                  Get.to(const IncomeExpenses());
+                  Get.off(const IncomeExpenses());
                 },
               ),
               const SizedBox(
@@ -225,7 +227,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                 ),
                 title: const Text('Profile'),
                 onTap: () {
-                  Get.to(const UserProfile());
+                  Get.off(const UserProfile());
                 },
               ),
               ListTile(
