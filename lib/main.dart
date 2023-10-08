@@ -21,9 +21,10 @@ import 'styles/gharkharcha_themes.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   initializeTimeZones();
- SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-  statusBarIconBrightness: Brightness.light,
-      statusBarColor: kKarobarcolor, systemNavigationBarColor: kKarobarcolor));
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarIconBrightness: Brightness.light,
+      statusBarColor: kKarobarcolor,
+      systemNavigationBarColor: kKarobarcolor));
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -86,3 +87,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+
+
+//this is our final gharkharcha
