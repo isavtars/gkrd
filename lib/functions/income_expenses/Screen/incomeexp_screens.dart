@@ -3,6 +3,7 @@ import 'package:firebase_database/firebase_database.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:gkrd/Screen/Dashboard/dashboard_screen.dart';
 
 import '../../../Screen/Budgets/budget_home_screen.dart';
 import '../../../styles/color.dart';
@@ -11,7 +12,12 @@ import '../../Reminders/widgets/drope_textedits.dart';
 import 'add_incexp_caterogies.dart';
 import 'expenss_add_screen.dart';
 import 'income_add_screen.dart';
- final FirebaseAuth auth = FirebaseAuth.instance;
+
+final FirebaseAuth auth = FirebaseAuth.instance;
+DatabaseReference sref =
+    FirebaseDatabase.instance.ref().child('Users').child(auth.currentUser!.uid);
+DatabaseReference filteredDataRef = sref.child('incexp').child('addincexp');
+
 class IncomeExpenses extends StatefulWidget {
   const IncomeExpenses({super.key});
 
@@ -20,14 +26,41 @@ class IncomeExpenses extends StatefulWidget {
 }
 
 class _IncomeExpensesState extends State<IncomeExpenses> {
-  List<String> dropedownmenu = ["Day", "Month", "Years"];
+  @override
+  void initState() {
+    super.initState();
+    updateDateRange();
+  }
+
+  List<String> dropedownmenu = ["Day", "Months", "Years"];
 
   String dropeablevalue = "Day";
+  DateTime startDate = DateTime(2080, 6, 24);
+  DateTime endDate = DateTime(2080, 6, 24).add(const Duration(days: 1));
 
-  DatabaseReference sref = FirebaseDatabase.instance.ref().child('Users').child(auth.currentUser!.uid);
+  void updateDateRange() {
+    DateTime now = DateTime.now();
+    if (dropeablevalue == 'Day') {
+      startDate = DateTime(now.year, now.month, now.day);
+      endDate = DateTime(now.year, now.month, now.day, 23, 59, 59);
+      print('daysss $startDate $endDate');
+    } else if (dropeablevalue == 'Months') {
+      startDate = DateTime(now.year, now.month, 1);
+      endDate = DateTime(now.year, now.month + 1, 0, 23, 59, 59);
+      print('montsss $startDate $endDate');
+    } else if (dropeablevalue == 'Years') {
+      startDate = DateTime(now.year, 1, 1);
+      endDate = DateTime(now.year, 12, 31, 23, 59, 59);
+      print('years $startDate $endDate');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    Query dateQuery = filteredDataRef
+        .orderByChild('paymentDateTime')
+        .startAt(startDate.toUtc().toIso8601String())
+        .endAt(endDate.toUtc().toIso8601String());
     return Scaffold(
       appBar: appbar(),
       backgroundColor: kKarobarcolor,
@@ -37,8 +70,11 @@ class _IncomeExpensesState extends State<IncomeExpenses> {
               stream: sref.child('incexp').onValue,
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
-                  return const Center(
-                    child: Text("uroffline"),
+                  return Center(
+                    child: Text(
+                      "uroffline",
+                      style: kJakartaBodyBold.copyWith(color: Colors.white),
+                    ),
                   );
                 } else {
                   Map<dynamic, dynamic>? map =
@@ -71,6 +107,8 @@ class _IncomeExpensesState extends State<IncomeExpenses> {
                                       onpress: (String? value) {
                                     setState(() {
                                       dropeablevalue = value!;
+                                      print(dropeablevalue);
+                                      updateDateRange();
                                     });
                                   }),
                                   const Text("SelectedDate and Years ")
@@ -95,10 +133,7 @@ class _IncomeExpensesState extends State<IncomeExpenses> {
                                       child: Image.asset(
                                           "assets/images/addTrans.png"))
                                   : StreamBuilder(
-                                      stream: sref
-                                          .child('incexp')
-                                          .child('addincexp')
-                                          .onValue,
+                                      stream: filteredDataRef.onValue,
                                       builder: (context,
                                           AsyncSnapshot<DatabaseEvent>
                                               snapshot) {
@@ -246,11 +281,16 @@ class _IncomeExpensesState extends State<IncomeExpenses> {
       elevation: 0,
       backgroundColor: kKarobarcolor,
       title: Text(
-        "Income Expenses",
+        "Income&Expenses",
         style: kJakartaHeading3.copyWith(
           fontSize: 18,
         ),
       ),
+      leading: IconButton(
+          onPressed: () {
+            Get.to(const Dashboard());
+          },
+          icon: const Icon(Icons.arrow_back)),
       actions: [
         TextButton(
           onPressed: () {

@@ -15,7 +15,7 @@ import '../../Reminders/widgets/drope_textedits.dart';
 import 'incomeexp_screens.dart';
 import '../widgets/inc_exp_appbar.dart';
 
- final FirebaseAuth auth = FirebaseAuth.instance;
+final FirebaseAuth auth = FirebaseAuth.instance;
 
 class IncomeADD extends StatefulWidget {
   const IncomeADD({super.key});
@@ -34,7 +34,8 @@ class _IncomeADDState extends State<IncomeADD> {
   final amountController = TextEditingController();
   final noteController = TextEditingController();
 
-  final ref = FirebaseDatabase.instance.ref("Users").child(auth.currentUser!.uid);
+  final ref =
+      FirebaseDatabase.instance.ref("Users").child(auth.currentUser!.uid);
   bool isFetching = false;
 
   //add data
@@ -57,15 +58,17 @@ class _IncomeADDState extends State<IncomeADD> {
     int expensesamount = map['expensesamount'];
     int netAmounts = map['netAmounts'];
 
-    double newAmount = incomeamount + incomeAmount!;
+    double newAmount = incomeAmount!;
     num totalnetamount = netAmounts + incomeAmount;
+
+    double totalAmount = newAmount + incomeamount;
 
     logger.i("$incomeamount $expensesamount $totalnetamount");
 
-    await ref
-        .child('incexp')
-        .update({"incomeamount": newAmount, "netAmounts": totalnetamount}).then(
-            (value) {
+    await ref.child('incexp').update({
+      "incomeamount": totalAmount,
+      "netAmounts": totalnetamount
+    }).then((value) {
       ref.child("incexp").child("addincexp").push().set({
         "selectedCaterogies": incomecaterogyvalue.toString(),
         "amount": ServerValue.increment(newAmount),
@@ -162,6 +165,7 @@ class _IncomeADDState extends State<IncomeADD> {
                               color: Color.fromARGB(255, 240, 238, 238)),
                           child: TextFormField(
                             controller: amountController,
+                            keyboardType: TextInputType.number,
                             decoration: const InputDecoration(
                               hintText: "Rs.",
                               border: InputBorder.none,

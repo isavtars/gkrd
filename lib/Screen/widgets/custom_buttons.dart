@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 
-
 import '../../styles/color.dart';
 import '../../styles/sizeconfig.dart';
 
 class CustomeBtn extends StatelessWidget {
-  const CustomeBtn(
-      {super.key, required this.btnTitleName, required this.onPress});
+  const CustomeBtn({
+    super.key,
+    required this.btnTitleName,
+    required this.onPress,
+    this.backgroundColor = kKarobarcolor,
+  });
   final Widget btnTitleName;
   final VoidCallback onPress;
+  final Color backgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +23,9 @@ class CustomeBtn extends StatelessWidget {
         height: 55,
         width: double.maxFinite,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10), color: kGreenColor),
+          color: backgroundColor,
+          borderRadius: BorderRadius.circular(10),
+        ),
         child: Center(
           child: btnTitleName,
         ),

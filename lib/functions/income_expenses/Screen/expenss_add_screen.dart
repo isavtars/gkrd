@@ -15,8 +15,8 @@ import '../../Reminders/widgets/drope_textedits.dart';
 import 'incomeexp_screens.dart';
 import '../widgets/inc_exp_appbar.dart';
 
- final FirebaseAuth auth = FirebaseAuth.instance;
- 
+final FirebaseAuth auth = FirebaseAuth.instance;
+
 class ExpensesAdd extends StatefulWidget {
   const ExpensesAdd({super.key});
 
@@ -35,7 +35,8 @@ class _ExpensesAddState extends State<ExpensesAdd> {
 
   bool isFetching = false;
 
-  final ref = FirebaseDatabase.instance.ref("Users").child(auth.currentUser!.uid);
+  final ref =
+      FirebaseDatabase.instance.ref("Users").child(auth.currentUser!.uid);
 
   void addExpenses() async {
     setState(() {
@@ -50,13 +51,15 @@ class _ExpensesAddState extends State<ExpensesAdd> {
     int expensesamount = map['expensesamount'];
     int netAmounts = map['netAmounts'];
 
-    double newExpAmount = expensesamount + expensesAmount!;
+    double newExpAmount = expensesAmount!;
     num totalnetamount = netAmounts - expensesAmount;
+
+    double totalamount = newExpAmount + expensesamount;
 
     logger.i(
         "thje toalta  l ampont  $incomeamount $expensesamount $totalnetamount ---------------");
     await ref.child('incexp').update({
-      "expensesamount": newExpAmount,
+      "expensesamount": totalamount,
       "netAmounts": totalnetamount
     }).then((value) {
       ref.child("incexp").child("addincexp").push().set({
@@ -75,7 +78,7 @@ class _ExpensesAddState extends State<ExpensesAdd> {
       isFetching = true;
     });
     // Get.to(const IncomeExpenses());
-   Get.off(() => const IncomeExpenses(), transition: Transition.fadeIn);
+    Get.off(() => const IncomeExpenses(), transition: Transition.fadeIn);
   }
 
   @override
@@ -155,6 +158,7 @@ class _ExpensesAddState extends State<ExpensesAdd> {
                                   BorderRadius.all(Radius.circular(8)),
                               color: Color.fromARGB(255, 240, 238, 238)),
                           child: TextFormField(
+                            keyboardType: TextInputType.number,
                             controller: amountController,
                             decoration: const InputDecoration(
                               hintText: "Rs.",

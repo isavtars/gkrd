@@ -13,6 +13,7 @@ import '../my_wallet/wallet_screen.dart';
 import '../plan/planning_screen.dart';
 
 import '../userprofile/user_profile.dart';
+import '../yourstatus/yourstatus.dart';
 
 class DrawerWidget extends StatefulWidget {
   const DrawerWidget({
@@ -91,7 +92,9 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                   color: kGreenColor,
                 ),
                 title: const Text('Your Status'),
-                onTap: () {},
+                onTap: () {
+                  Get.to(const YourStatus());
+                },
               ),
               const SizedBox(
                 height: 5,
@@ -118,7 +121,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                 title: const Text('Wallet'),
                 onTap: () {
                   Get.to(const WalletScreen());
-                   Navigator.of(context);
+                  Navigator.of(context);
                 },
               ),
               ListTile(
