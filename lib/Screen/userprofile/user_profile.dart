@@ -111,22 +111,22 @@ class UserProfile extends StatelessWidget {
                         ProfileTab(
                             constraints: constraints,
                             title: 'Full Name',
-                            iconName: Icon(Icons.person),
+                            iconName: const Icon(Icons.person),
                             titleValue: map['fullName']),
                         ProfileTab(
                             constraints: constraints,
                             title: 'Phone number',
-                            iconName: Icon(Icons.call),
+                            iconName: const Icon(Icons.call),
                             titleValue: map['phoneNumber']),
                         ProfileTab(
                             constraints: constraints,
                             title: 'Bank account number',
-                            iconName: Icon(Icons.account_balance),
+                            iconName: const Icon(Icons.account_balance),
                             titleValue: map['bankAccNumber']),
                         ProfileTab(
                             constraints: constraints,
                             title: 'KYC number',
-                            iconName: Icon(Icons.person),
+                            iconName: const Icon(Icons.person),
                             titleValue: map['kyc']),
                         ProfileTab(
                             constraints: constraints,

@@ -10,7 +10,7 @@ class TextFormFieldWithAutocomplete<T> extends StatefulWidget {
   final Function(Goods) onSelected;
   final String hintText;
 
-  TextFormFieldWithAutocomplete({
+  const TextFormFieldWithAutocomplete({super.key, 
     required this.options,
     required this.onSelected,
     required this.hintText,
