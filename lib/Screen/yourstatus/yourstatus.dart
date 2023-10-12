@@ -113,11 +113,6 @@ class _YourStatusState extends State<YourStatus> {
               ]),
             ),
             //
-            LineChart(
-              LineChartData(
-                  // read about it in the LineChartData section
-                  ),
-            )
           ],
         ),
       ),

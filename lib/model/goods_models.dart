@@ -1,24 +1,32 @@
-class Goods {
+class GoodsItem {
   final String name;
-  final String prices;
-  final String quantity;
+  final double price;
+  final int quantity;
+  final String icon;
 
-  Goods( {required this.name, required this.prices, required this.quantity,});
+  GoodsItem(
+      {required this.name,
+      required this.price,
+      required this.quantity,
+      required this.icon});
 
-  @override
-  String toString() => name;
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'price': price,
+      'quantity': quantity,
+      'icon': icon,
+    };
+  }
 }
 
+// List<GoodsItem> goodsList = [
+//   GoodsItem(name: 'Petrol', price: '160', quantity: "1L",),
+//   GoodsItem(name: 'Milk', price: '120', quantity: "1L",),
+//   GoodsItem(name: 'Diseals', price: '112', quantity: "1L"),
+//   GoodsItem(name: 'Gas', price: '1950', quantity: "1Cylinder"),
+//   GoodsItem(name: 'Gold', price: '10000', quantity: "1tola"),
+//   GoodsItem(name: 'Diseals', price: '112', quantity: "1L"),
 
-
-List<Goods> goodsList = [
-      Goods(name: 'Petrol', prices: '160',quantity:"1L"),
-      Goods(name: 'Milk', prices: '120',quantity:"1L"),
-      Goods(name: 'Diseals', prices: '112',quantity:"1L"),
-      Goods(name: 'Gas', prices: '1950',quantity:"1Cylinder"),
-      Goods(name: 'Gold', prices: '10000',quantity:"1tola"),
-      Goods(name: 'Diseals', prices: '112',quantity:"1L"),
-
-
-  // Add more countries
-];
+//   // Add more countries
+// ];

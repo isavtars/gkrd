@@ -3,7 +3,7 @@ import 'package:firebase_database/firebase_database.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:gkrd/Screen/Dashboard/dashboard_screen.dart';
+import 'package:gkrd/Screen/Dashboard/Screen/dashboard_screen.dart';
 
 import '../../../Screen/Budgets/budget_home_screen.dart';
 import '../../../styles/color.dart';

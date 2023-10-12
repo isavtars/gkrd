@@ -3,6 +3,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
+import 'package:gkrd/Screen/Dashboard/Screen/dashboard_screen.dart';
 
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
@@ -34,6 +35,12 @@ class UserProfile extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: kKarobarcolor,
         elevation: 0,
+        leading: IconButton(
+          onPressed: () {
+            Get.to(const Dashboard());
+          },
+          icon: const Icon(Icons.arrow_back),
+        ),
       ),
       body: StreamBuilder(
           stream: ref.child(user.uid.toString()).onValue,
@@ -93,7 +100,7 @@ class UserProfile extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(100),
                                 child: map!['profilePic'].toString() == ""
                                     ? const Icon(
-                                      Icons.person,
+                                        Icons.person,
                                         size: 90,
                                         color: kGrayTextC,
                                       )
@@ -136,9 +143,12 @@ class UserProfile extends StatelessWidget {
                         ProfileTab(
                             constraints: constraints,
                             title: 'Income Range',
-                            iconName:const  Padding(
+                            iconName: const Padding(
                               padding: EdgeInsets.all(6.0),
-                              child: Text("Rs.",style: TextStyle(fontSize: 20),),
+                              child: Text(
+                                "Rs.",
+                                style: TextStyle(fontSize: 20),
+                              ),
                             ),
                             titleValue: map['incomeRange']),
                         SizedBox(
@@ -259,7 +269,7 @@ class ProfileTab extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-             iconName,
+            iconName,
             SizedBox(
               width: constraints.maxWidth * 0.06,
             ),

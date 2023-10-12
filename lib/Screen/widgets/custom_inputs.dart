@@ -40,9 +40,7 @@ class CustomeInputs extends StatelessWidget {
               color: kGrayC,
               size: 20,
             ),
-          
             hintText: hintText,
-          
             hoverColor: kGreenColor,
             focusColor: kKarobarcolor,
             filled: true,
@@ -84,11 +82,11 @@ class CustomeInputWithdrop extends StatelessWidget {
             Row(
               children: [
                 const Padding(
-                  padding:  EdgeInsets.all(8.0),
-                  child: Text("Rs.",style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w300
-                  ),),
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    "Rs.",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300),
+                  ),
                 ),
                 SizedBox(
                   width: SizeConfig.blockSizeHorizontal! * 4,
@@ -107,7 +105,6 @@ class CustomeInputWithdrop extends StatelessWidget {
   }
 }
 
-
 ///custome ouput input With Rs
 
 class CustomeInputsRs extends StatelessWidget {
@@ -115,7 +112,6 @@ class CustomeInputsRs extends StatelessWidget {
       {super.key,
       this.textEditingController,
       required this.hintText,
-     
       this.validators,
       required this.textinputTypes,
       this.credentials = false,
@@ -123,7 +119,7 @@ class CustomeInputsRs extends StatelessWidget {
 
   final TextEditingController? textEditingController;
   final String hintText;
-  
+
   final dynamic validators;
   final TextInputType textinputTypes;
   final bool credentials;
@@ -142,10 +138,53 @@ class CustomeInputsRs extends StatelessWidget {
         keyboardType: textinputTypes,
         decoration: InputDecoration(
             hintStyle: const TextStyle(color: kGrayC, fontSize: 16),
-           
-            prefix:const Text ("Rs.") ,
+            prefix: const Text("Rs."),
             hintText: hintText,
-          
+            hoverColor: kGreenColor,
+            focusColor: kKarobarcolor,
+            filled: true,
+            enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
+            focusedBorder:
+                Theme.of(context).inputDecorationTheme.focusedBorder),
+      ),
+    );
+  }
+}
+
+//addgoods Inpusts
+
+class AddGoodsInputs extends StatelessWidget {
+  const AddGoodsInputs(
+      {super.key,
+      this.textEditingController,
+      required this.hintText,
+      this.validators,
+      required this.textinputTypes,
+      this.credentials = false,
+      this.inputFormatters});
+
+  final TextEditingController? textEditingController;
+  final String hintText;
+
+  final dynamic validators;
+  final TextInputType textinputTypes;
+  final bool credentials;
+  final dynamic inputFormatters;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(11)),
+      child: TextFormField(
+        obscureText: credentials ? true : false,
+        validator: validators,
+        controller: textEditingController,
+        style: const TextStyle(color: kGrayTextC),
+        cursorColor: Theme.of(context).primaryColor,
+        keyboardType: textinputTypes,
+        decoration: InputDecoration(
+            hintStyle: const TextStyle(color: kGrayC, fontSize: 16),
+            hintText: hintText,
             hoverColor: kGreenColor,
             focusColor: kKarobarcolor,
             filled: true,
