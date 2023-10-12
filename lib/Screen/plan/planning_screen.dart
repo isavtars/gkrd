@@ -238,7 +238,7 @@ class _PlanningScreeenState extends State<PlanningScreeen> {
           //targetAmount
           Row(
             children: [
-              Text(
+              const Text(
                 'Target Amount',
                 style: TextStyle(
                     fontSize: 18,
@@ -265,7 +265,7 @@ class _PlanningScreeenState extends State<PlanningScreeen> {
           //collected funds
           Row(
             children: [
-              Text(
+              const Text(
                 'Colllected Funds',
                 style: TextStyle(
                     fontSize: 20,
