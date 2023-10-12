@@ -30,8 +30,6 @@ class _DashboardState extends State<Dashboard> {
     super.initState();
   }
 
-  final _formKey = GlobalKey<FormState>();
-
   final dbHelper = SQLHelperGoods();
   final TextEditingController searchController = TextEditingController();
   List<GoodsItem> searchResults = [];
@@ -44,6 +42,7 @@ class _DashboardState extends State<Dashboard> {
       });
     } else {
       final results = await dbHelper.searchItems(query);
+
       setState(() {
         searchResults = results;
       });
@@ -82,49 +81,76 @@ class _DashboardState extends State<Dashboard> {
               ),
 
               //bodyciontents
-              //Search Contents heare
-              // ElevatedButton(
-              //     onPressed: () async {
-              //       // Retrieve and print items from the database
-              //       final items = await dbHelper.getItems();
-              //       for (var item in items) {
-              //         print(
-              //             'Name: ${item.name}, Price: ${item.price}, Quantity: ${item.quantity}, Icon: ${item.icon}');
-              //       }
-              //     },
-              //     child: const Icon(Icons.add_to_queue))
 
-              Container(
-                child: Column(children: [
-                  Form(
-                    child: TextFormField(
-                      decoration:
-                          const InputDecoration(labelText: 'Search Item'),
-                      controller: searchController,
-                      onChanged: (query) {
-                        // Handle search when the text changes
-                        handleSearch(query);
-                      },
-                    ),
+              Row(
+                children: [
+                  const SizedBox(
+                    width: 10,
                   ),
                   Container(
-                    height: 500,
-                    width: 300,
-                    child: ListView.builder(
-                      itemCount: searchResults.length,
-                      itemBuilder: (context, index) {
-                        final item = searchResults[index];
-                        return ListTile(
-                          title: Text(item.name),
-                          subtitle: Text(
-                              'Price: ${item.price.toStringAsFixed(2)}, Quantity: ${item.quantity}'),
-                          leading: const Icon(Icons.abc),
-                        );
-                      },
+                    width: constraints.maxWidth * 0.8,
+                    margin: const EdgeInsets.symmetric(horizontal: 4),
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                    decoration: BoxDecoration(
+                        border: Border.all(),
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Icon(
+                            Icons.search,
+                            size: 22,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Container(
+                          width: constraints.maxWidth * 0.5,
+                          padding: const EdgeInsets.all(2),
+                          child: TextFormField(
+                            decoration: const InputDecoration(
+                                enabledBorder: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                                hintText: "search price by goods",
+                                border: InputBorder.none),
+                            controller: searchController,
+                            onChanged: (query) {
+                              // Handle search when the text changes
+                              handleSearch(query);
+                            },
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ]),
-              )
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  const Icon(Icons.sort),
+                ],
+              ),
+
+              const SizedBox(
+                height: 10,
+              ),
+              Container(
+                padding: const EdgeInsets.all(9),
+                height: 400,
+                child: ListView.builder(
+                    itemCount: searchResults.length,
+                    itemBuilder: (context, index) {
+                      final item = searchResults[index];
+                      binarySearchByName(item as List<GoodsItem>, item.name);
+                      return GoodsPriceListCards(
+                          goodIcons: Icons.abc,
+                          goodsTitle: item.name,
+                          goodsPrices: item.price.toString(),
+                          quantity: item.quantity.toString());
+                    }),
+              ),
             ],
           ),
         );
