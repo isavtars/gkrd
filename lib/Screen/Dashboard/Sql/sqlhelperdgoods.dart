@@ -16,7 +16,7 @@ class SQLHelperGoods {
 id INTEGER PRIMARY KEY,
 name TEXT,
 price REAL,
-quantity INTEGER,
+quantity TEXT,
 icon TEXT
 createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 )
@@ -95,5 +95,10 @@ createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
       where: 'id = ?',
       whereArgs: [id],
     );
+  }
+
+  Future<void> deleteDataByName(String name) async {
+    final db = await SQLHelperGoods.db();
+    await db.delete('goodsitem', where: 'name = ?', whereArgs: [name]);
   }
 }

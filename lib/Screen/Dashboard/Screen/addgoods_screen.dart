@@ -18,7 +18,7 @@ class _AddGoodsscreenState extends State<AddGoodsscreen> {
   final _formKey = GlobalKey<FormState>();
   String name = "";
   double price = 0.0;
-  int quantity = 0;
+  String quantity = "1kg";
   IconData selectedIcon = Icons.star;
   final dbHelper = SQLHelperGoods();
   submitform() async {
@@ -108,7 +108,7 @@ class _AddGoodsscreenState extends State<AddGoodsscreen> {
                       TextFormField(
                         decoration:
                             const InputDecoration(labelText: 'Enter Quantity'),
-                        keyboardType: TextInputType.number,
+                        keyboardType: TextInputType.text,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Please enter a quantity';
@@ -116,7 +116,7 @@ class _AddGoodsscreenState extends State<AddGoodsscreen> {
                           return null;
                         },
                         onSaved: (value) {
-                          quantity = int.parse(value!);
+                          quantity = value!;
                         },
                       ),
                       const SizedBox(

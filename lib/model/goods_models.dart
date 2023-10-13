@@ -1,9 +1,7 @@
-import 'package:gkrd/functions/Reminders/sql/sql_lite_helper.dart';
-
 class GoodsItem {
   final String name;
   final double price;
-  final int quantity;
+  final String quantity;
   final String icon;
 
   GoodsItem(

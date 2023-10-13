@@ -77,6 +77,14 @@ class _DashboardState extends State<Dashboard> {
     getItems();
   }
 
+  //
+  void deletByname(String name) async {
+    final dbHelper = SQLHelperGoods();
+    await dbHelper.deleteDataByName(name);
+
+    getItems();
+  }
+
   void handleSearch(String query) async {
     // Perform the search and update the results
     if (query.isEmpty) {
@@ -196,7 +204,7 @@ class _DashboardState extends State<Dashboard> {
 
                       return GestureDetector(
                         onTap: () {
-                          crudbybottomsheet(context, index);
+                          crudbybottomsheet(context, item);
                         },
                         child: GoodsPriceListCards(
                             goodIcons: Icons.abc,
@@ -304,7 +312,7 @@ class _DashboardState extends State<Dashboard> {
         });
   }
 
-  Future<dynamic> crudbybottomsheet(BuildContext context, id) {
+  Future<dynamic> crudbybottomsheet(BuildContext context, GoodsItem item) {
     return showModalBottomSheet(
       context: context,
       builder: (context) {
@@ -326,7 +334,7 @@ class _DashboardState extends State<Dashboard> {
               children: <Widget>[
                 ElevatedButton(
                   onPressed: () {
-                    deleteItem(id);
+                    deletByname(item.name);
                     getItems();
                     Navigator.of(context).pop();
                   },
@@ -571,7 +579,7 @@ class GoodsPriceListCards extends StatelessWidget {
                 fontSize: 20, color: Colors.white, fontWeight: FontWeight.w600),
           ),
           const SizedBox(
-            width: 60,
+            width: 10,
           ),
           Text(
             "Rs",
@@ -596,10 +604,10 @@ class GoodsPriceListCards extends StatelessWidget {
               ),
             ),
           ),
-          // Text(
-          //   quantity,
-          //   style: kJakartaBodyRegular.copyWith(color: Colors.white),
-          // ),
+          Text(
+            quantity,
+            style: kJakartaBodyRegular.copyWith(color: Colors.white),
+          ),
           const SizedBox(
             width: 18,
           ),
