@@ -21,9 +21,9 @@ class _YourStatusState extends State<YourStatus> {
     getincomeexpenseData();
   }
 
-  late int incomeamount;
-  late int expenseamount;
-  late int nettotalamount;
+  int incomeamount = 100;
+  int expenseamount = 210;
+  int nettotalamount = 310;
 
   void getincomeexpenseData() async {
     DatabaseReference incomeRef = ref.child('incexp');
@@ -32,7 +32,6 @@ class _YourStatusState extends State<YourStatus> {
     incomeamount = map['incomeamount'];
     expenseamount = map['expensesamount'];
     nettotalamount = map['netAmounts'];
-    print('$expenseamount $incomeamount $nettotalamount');
   }
 
   @override

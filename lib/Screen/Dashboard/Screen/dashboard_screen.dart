@@ -16,6 +16,8 @@ import '../Models/front_dosplay_card_model.dart';
 import '../Sql/sqlhelperdgoods.dart';
 import 'addgoods_screen.dart';
 
+enum SortOption { latest, nameAZ, nameZA, priceshightwolow, priceslowtohigh }
+
 //homepage/dashboard
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -28,20 +30,62 @@ class _DashboardState extends State<Dashboard> {
   @override
   void initState() {
     super.initState();
+    getItems();
   }
 
   final dbHelper = SQLHelperGoods();
   final TextEditingController searchController = TextEditingController();
   List<GoodsItem> searchResults = [];
+  SortOption selectedSortOption = SortOption.latest;
+
+  void getItems() async {
+    final List<GoodsItem> items = await dbHelper.getAllItems();
+    logger.i('$searchResults iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
+
+    // Apply the sorting algorithm based on the selected sort option
+    switch (selectedSortOption) {
+      case SortOption.latest:
+        // No need to sort for the "Latest" option.
+        break;
+      case SortOption.nameAZ:
+        bubbleSortByName(searchResults, ascending: true);
+        logger.i(
+            ' this is from nameAZ iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
+        break;
+      case SortOption.nameZA:
+        bubbleSortByName(searchResults, ascending: false);
+        break;
+      case SortOption.priceshightwolow:
+        bubbleSortByPrice(searchResults, ascending: false);
+        break;
+      case SortOption.priceslowtohigh:
+        bubbleSortByPrice(searchResults, ascending: true);
+        break;
+    }
+
+    setState(() {
+      searchResults = items;
+    });
+  }
+
+  //deletecode
+  void deleteItem(int id) async {
+    final dbHelper = SQLHelperGoods();
+    await dbHelper.deleteItem(id);
+
+    getItems();
+  }
 
   void handleSearch(String query) async {
     // Perform the search and update the results
     if (query.isEmpty) {
       setState(() {
-        searchResults = [];
+        getItems();
       });
     } else {
       final results = await dbHelper.searchItems(query);
+      //binary search algorithm
+      binarySearch(results, results.length.toString());
 
       setState(() {
         searchResults = results;
@@ -127,9 +171,95 @@ class _DashboardState extends State<Dashboard> {
                     ),
                   ),
                   const SizedBox(
-                    width: 20,
+                    width: 0,
                   ),
-                  const Icon(Icons.sort),
+                  IconButton(
+                      onPressed: () {
+                        showModalBottomSheet(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return Container(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    Text(
+                                      'Sorting data',
+                                      style: kJakartaBodyBold.copyWith(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 20),
+                                    ),
+                                    ListTile(
+                                      title: const Text('Latest'),
+                                      leading: Radio(
+                                        value: SortOption.latest,
+                                        groupValue: selectedSortOption,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            selectedSortOption = value!;
+                                          });
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                    ),
+                                    ListTile(
+                                      title: const Text('Name(A-Z)'),
+                                      leading: Radio(
+                                        value: SortOption.nameAZ,
+                                        groupValue: selectedSortOption,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            selectedSortOption = value!;
+                                          });
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                    ),
+                                    ListTile(
+                                      title: const Text('Name(Z-A)'),
+                                      leading: Radio(
+                                        value: SortOption.nameZA,
+                                        groupValue: selectedSortOption,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            selectedSortOption = value!;
+                                          });
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                    ),
+                                    ListTile(
+                                      title: const Text('Prices(High-to-low)'),
+                                      leading: Radio(
+                                        value: SortOption.priceshightwolow,
+                                        groupValue: selectedSortOption,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            selectedSortOption = value!;
+                                          });
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                    ),
+                                    ListTile(
+                                      title: const Text('Prices(low-to-high)'),
+                                      leading: Radio(
+                                        value: SortOption.priceslowtohigh,
+                                        groupValue: selectedSortOption,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            selectedSortOption = value!;
+                                          });
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            });
+                      },
+                      icon: const Icon(Icons.sort)),
                 ],
               ),
 
@@ -143,18 +273,69 @@ class _DashboardState extends State<Dashboard> {
                     itemCount: searchResults.length,
                     itemBuilder: (context, index) {
                       final item = searchResults[index];
-                      binarySearchByName(item as List<GoodsItem>, item.name);
-                      return GoodsPriceListCards(
-                          goodIcons: Icons.abc,
-                          goodsTitle: item.name,
-                          goodsPrices: item.price.toString(),
-                          quantity: item.quantity.toString());
+                      binarySearch(searchResults, item.name);
+
+                      return GestureDetector(
+                        onTap: () {
+                          crudbybottomsheet(context, index);
+                        },
+                        child: GoodsPriceListCards(
+                            goodIcons: Icons.abc,
+                            goodsTitle: item.name,
+                            goodsPrices: item.price.toString(),
+                            quantity: item.quantity.toString()),
+                      );
                     }),
               ),
             ],
           ),
         );
       })),
+    );
+  }
+
+  Future<dynamic> crudbybottomsheet(BuildContext context, int index) {
+    return showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            const Text(
+              'Delete Item',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 16),
+            const Text('Are you sure you want to delete this item?'),
+            const SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                ElevatedButton(
+                  onPressed: () {
+                    deleteItem(index);
+                    Navigator.of(context).pop();
+                    getItems();
+                  },
+                  child: Text('Delete', style: kJakartaBodyBold.copyWith()),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.red),
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(); // Close the Bottom Sheet
+                  },
+                  child: Text('Cancel'),
+                ),
+              ],
+            ),
+          ],
+        );
+      },
     );
   }
 

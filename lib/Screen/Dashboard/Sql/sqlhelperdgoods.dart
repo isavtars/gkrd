@@ -71,4 +71,29 @@ createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
       );
     });
   }
+
+  // Add a method to get all items
+  Future<List<GoodsItem>> getAllItems() async {
+    final db = await SQLHelperGoods.db();
+    final List<Map<String, dynamic>> maps = await db.query('goodsitem');
+
+    return List.generate(maps.length, (i) {
+      return GoodsItem(
+        name: maps[i]['name'],
+        price: maps[i]['price'],
+        quantity: maps[i]['quantity'],
+        icon: maps[i]['icon'],
+      );
+    });
+  }
+
+  // Define a function to delete a record by ID
+  Future<void> deleteItem(int id) async {
+    final db = await SQLHelperGoods.db();
+    await db.delete(
+      'goodsitem',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
 }
