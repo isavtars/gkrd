@@ -66,7 +66,6 @@ class _DashboardState extends State<Dashboard> {
       // searchResults = items;
       searchResults.clear(); // Clear the current list
       searchResults.addAll(items); // Add sorted items to the list
-      getItems();
     });
   }
 
@@ -197,7 +196,7 @@ class _DashboardState extends State<Dashboard> {
 
                       return GestureDetector(
                         onTap: () {
-                          crudbybottomsheet(context, item);
+                          crudbybottomsheet(context, index);
                         },
                         child: GoodsPriceListCards(
                             goodIcons: Icons.abc,
@@ -237,6 +236,7 @@ class _DashboardState extends State<Dashboard> {
                     onChanged: (value) {
                       setState(() {
                         selectedSortOption = value!;
+                        getItems();
                       });
                       Navigator.pop(context);
                     },
@@ -250,6 +250,7 @@ class _DashboardState extends State<Dashboard> {
                     onChanged: (value) {
                       setState(() {
                         selectedSortOption = value!;
+                        getItems();
                       });
                       Navigator.pop(context);
                     },
@@ -263,6 +264,7 @@ class _DashboardState extends State<Dashboard> {
                     onChanged: (value) {
                       setState(() {
                         selectedSortOption = value!;
+                        getItems();
                       });
                       Navigator.pop(context);
                     },
@@ -276,6 +278,7 @@ class _DashboardState extends State<Dashboard> {
                     onChanged: (value) {
                       setState(() {
                         selectedSortOption = value!;
+                        getItems();
                       });
                       Navigator.pop(context);
                     },
@@ -289,6 +292,7 @@ class _DashboardState extends State<Dashboard> {
                     onChanged: (value) {
                       setState(() {
                         selectedSortOption = value!;
+                        getItems();
                       });
                       Navigator.pop(context);
                     },
