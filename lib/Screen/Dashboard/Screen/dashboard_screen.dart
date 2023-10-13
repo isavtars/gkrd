@@ -66,6 +66,7 @@ class _DashboardState extends State<Dashboard> {
       // searchResults = items;
       searchResults.clear(); // Clear the current list
       searchResults.addAll(items); // Add sorted items to the list
+      getItems();
     });
   }
 
@@ -196,7 +197,7 @@ class _DashboardState extends State<Dashboard> {
 
                       return GestureDetector(
                         onTap: () {
-                          crudbybottomsheet(context, index);
+                          crudbybottomsheet(context, item);
                         },
                         child: GoodsPriceListCards(
                             goodIcons: Icons.abc,
@@ -213,6 +214,7 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 
+//sorting methods
   Future<dynamic> sortingdatausingbuttomsheet(BuildContext context) {
     return showModalBottomSheet(
         context: context,
@@ -298,7 +300,7 @@ class _DashboardState extends State<Dashboard> {
         });
   }
 
-  Future<dynamic> crudbybottomsheet(BuildContext context, int index) {
+  Future<dynamic> crudbybottomsheet(BuildContext context, id) {
     return showModalBottomSheet(
       context: context,
       builder: (context) {
@@ -320,20 +322,20 @@ class _DashboardState extends State<Dashboard> {
               children: <Widget>[
                 ElevatedButton(
                   onPressed: () {
-                    deleteItem(index);
-                    Navigator.of(context).pop();
+                    deleteItem(id);
                     getItems();
+                    Navigator.of(context).pop();
                   },
-                  child: Text('Delete', style: kJakartaBodyBold.copyWith()),
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.red),
                   ),
+                  child: Text('Delete', style: kJakartaBodyBold.copyWith()),
                 ),
                 ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).pop(); // Close the Bottom Sheet
                   },
-                  child: Text('Cancel'),
+                  child: const Text('Cancel'),
                 ),
               ],
             ),
@@ -590,6 +592,10 @@ class GoodsPriceListCards extends StatelessWidget {
               ),
             ),
           ),
+          // Text(
+          //   quantity,
+          //   style: kJakartaBodyRegular.copyWith(color: Colors.white),
+          // ),
           const SizedBox(
             width: 18,
           ),
