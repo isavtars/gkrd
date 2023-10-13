@@ -1,3 +1,5 @@
+import 'package:gkrd/functions/Reminders/sql/sql_lite_helper.dart';
+
 class GoodsItem {
   final String name;
   final double price;
@@ -39,17 +41,6 @@ int binarySearch(List<GoodsItem> items, String name) {
   // Item with the given name not found
   return -1;
 }
-
-// List<GoodsItem> goodsList = [
-//   GoodsItem(name: 'Petrol', price: '160', quantity: "1L",),
-//   GoodsItem(name: 'Milk', price: '120', quantity: "1L",),
-//   GoodsItem(name: 'Diseals', price: '112', quantity: "1L"),
-//   GoodsItem(name: 'Gas', price: '1950', quantity: "1Cylinder"),
-//   GoodsItem(name: 'Gold', price: '10000', quantity: "1tola"),
-//   GoodsItem(name: 'Diseals', price: '112', quantity: "1L"),
-
-//   // Add more countries
-// ];
 
 void bubbleSortByName(List<GoodsItem> list, {bool ascending = true}) {
   int n = list.length;
