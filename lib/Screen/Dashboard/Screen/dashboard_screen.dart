@@ -40,7 +40,6 @@ class _DashboardState extends State<Dashboard> {
 
   void getItems() async {
     final List<GoodsItem> items = await dbHelper.getAllItems();
-    logger.i('$searchResults iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
 
     // Apply the sorting algorithm based on the selected sort option
     switch (selectedSortOption) {
@@ -48,23 +47,25 @@ class _DashboardState extends State<Dashboard> {
         // No need to sort for the "Latest" option.
         break;
       case SortOption.nameAZ:
-        bubbleSortByName(searchResults, ascending: true);
+        bubbleSortByName(items, ascending: true);
         logger.i(
-            ' this is from nameAZ iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
+            ' this is from nameAZ $items iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
         break;
       case SortOption.nameZA:
-        bubbleSortByName(searchResults, ascending: false);
+        bubbleSortByName(items, ascending: false);
         break;
       case SortOption.priceshightwolow:
-        bubbleSortByPrice(searchResults, ascending: false);
+        bubbleSortByPrice(items, ascending: false);
         break;
       case SortOption.priceslowtohigh:
-        bubbleSortByPrice(searchResults, ascending: true);
+        bubbleSortByPrice(items, ascending: true);
         break;
     }
 
     setState(() {
-      searchResults = items;
+      // searchResults = items;
+      searchResults.clear(); // Clear the current list
+      searchResults.addAll(items); // Add sorted items to the list
     });
   }
 
@@ -175,89 +176,7 @@ class _DashboardState extends State<Dashboard> {
                   ),
                   IconButton(
                       onPressed: () {
-                        showModalBottomSheet(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return Container(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    Text(
-                                      'Sorting data',
-                                      style: kJakartaBodyBold.copyWith(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 20),
-                                    ),
-                                    ListTile(
-                                      title: const Text('Latest'),
-                                      leading: Radio(
-                                        value: SortOption.latest,
-                                        groupValue: selectedSortOption,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            selectedSortOption = value!;
-                                          });
-                                          Navigator.pop(context);
-                                        },
-                                      ),
-                                    ),
-                                    ListTile(
-                                      title: const Text('Name(A-Z)'),
-                                      leading: Radio(
-                                        value: SortOption.nameAZ,
-                                        groupValue: selectedSortOption,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            selectedSortOption = value!;
-                                          });
-                                          Navigator.pop(context);
-                                        },
-                                      ),
-                                    ),
-                                    ListTile(
-                                      title: const Text('Name(Z-A)'),
-                                      leading: Radio(
-                                        value: SortOption.nameZA,
-                                        groupValue: selectedSortOption,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            selectedSortOption = value!;
-                                          });
-                                          Navigator.pop(context);
-                                        },
-                                      ),
-                                    ),
-                                    ListTile(
-                                      title: const Text('Prices(High-to-low)'),
-                                      leading: Radio(
-                                        value: SortOption.priceshightwolow,
-                                        groupValue: selectedSortOption,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            selectedSortOption = value!;
-                                          });
-                                          Navigator.pop(context);
-                                        },
-                                      ),
-                                    ),
-                                    ListTile(
-                                      title: const Text('Prices(low-to-high)'),
-                                      leading: Radio(
-                                        value: SortOption.priceslowtohigh,
-                                        groupValue: selectedSortOption,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            selectedSortOption = value!;
-                                          });
-                                          Navigator.pop(context);
-                                        },
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            });
+                        sortingdatausingbuttomsheet(context);
                       },
                       icon: const Icon(Icons.sort)),
                 ],
@@ -292,6 +211,91 @@ class _DashboardState extends State<Dashboard> {
         );
       })),
     );
+  }
+
+  Future<dynamic> sortingdatausingbuttomsheet(BuildContext context) {
+    return showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text(
+                  'Sorting data',
+                  style: kJakartaBodyBold.copyWith(
+                      fontWeight: FontWeight.w600, fontSize: 20),
+                ),
+                ListTile(
+                  title: const Text('Latest'),
+                  leading: Radio(
+                    value: SortOption.latest,
+                    groupValue: selectedSortOption,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedSortOption = value!;
+                      });
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+                ListTile(
+                  title: const Text('Name(A-Z)'),
+                  leading: Radio(
+                    value: SortOption.nameAZ,
+                    groupValue: selectedSortOption,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedSortOption = value!;
+                      });
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+                ListTile(
+                  title: const Text('Name(Z-A)'),
+                  leading: Radio(
+                    value: SortOption.nameZA,
+                    groupValue: selectedSortOption,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedSortOption = value!;
+                      });
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+                ListTile(
+                  title: const Text('Prices(High-to-low)'),
+                  leading: Radio(
+                    value: SortOption.priceshightwolow,
+                    groupValue: selectedSortOption,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedSortOption = value!;
+                      });
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+                ListTile(
+                  title: const Text('Prices(low-to-high)'),
+                  leading: Radio(
+                    value: SortOption.priceslowtohigh,
+                    groupValue: selectedSortOption,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedSortOption = value!;
+                      });
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+              ],
+            ),
+          );
+        });
   }
 
   Future<dynamic> crudbybottomsheet(BuildContext context, int index) {
@@ -538,9 +542,11 @@ class GoodsPriceListCards extends StatelessWidget {
           color: const Color.fromARGB(255, 67, 110, 145),
           borderRadius: BorderRadius.circular(8)),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const SizedBox(
-            width: 20,
+            width: 10,
           ),
           CircleAvatar(
               backgroundColor: Colors.white,
@@ -551,7 +557,7 @@ class GoodsPriceListCards extends StatelessWidget {
                 color: Colors.blue,
               )),
           const SizedBox(
-            width: 20,
+            width: 10,
           ),
           Text(
             goodsTitle,
@@ -559,7 +565,7 @@ class GoodsPriceListCards extends StatelessWidget {
                 fontSize: 20, color: Colors.white, fontWeight: FontWeight.w600),
           ),
           const SizedBox(
-            width: 90,
+            width: 60,
           ),
           Text(
             "Rs",
@@ -569,11 +575,19 @@ class GoodsPriceListCards extends StatelessWidget {
             width: 2,
           ),
           SizedBox(
-            width: 60,
-            child: Text(
-              goodsPrices,
-              style:
-                  kJakartaBodyBold.copyWith(fontSize: 18, color: Colors.white),
+            width: 100,
+            child: Align(
+              alignment: Alignment.center,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    goodsPrices,
+                    style: kJakartaBodyBold.copyWith(
+                        fontSize: 18, color: Colors.white),
+                  ),
+                ],
+              ),
             ),
           ),
           const SizedBox(
