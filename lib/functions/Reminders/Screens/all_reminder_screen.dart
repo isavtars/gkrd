@@ -448,10 +448,6 @@ class _AllRemindersState extends State<AllReminders>
                                 },
                               ),
                               TextButton(
-                                child: Text(
-                                  "Deleted",
-                                  style: const TextStyle(color: Colors.white),
-                                ),
                                 style: TextButton.styleFrom(
                                     backgroundColor: Colors.red),
                                 onPressed: () {
@@ -470,6 +466,10 @@ class _AllRemindersState extends State<AllReminders>
                                     ),
                                   );
                                 },
+                                child: const Text(
+                                  "Deleted",
+                                  style: TextStyle(color: Colors.white),
+                                ),
                               ),
                             ],
                           );

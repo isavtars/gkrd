@@ -10,7 +10,6 @@ import '../../../styles/color.dart';
 
 import '../../Reminders/widgets/drope_textedits.dart';
 import 'add_incexp_caterogies.dart';
-import 'algortm.dart';
 import 'expenss_add_screen.dart';
 import 'income_add_screen.dart';
 
