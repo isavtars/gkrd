@@ -17,6 +17,8 @@ import 'addfunds.dart';
 
 import 'package:intl/intl.dart';
 
+import 'widgets/charts.dart';
+
 //homepages
 class BHomeScreen extends StatelessWidget {
   const BHomeScreen({super.key});
@@ -75,7 +77,11 @@ class BHomeScreen extends StatelessWidget {
                       map['expensesAvailableBalance'] +
                       map['savings']) as dynamic;
 
-                  logger.i("------------${map['allTransations']}");
+                  double neddc = map['needAvailableBalance'].toDouble();
+                  double expen = map['expensesAvailableBalance'].toDouble();
+                  double savin = map['savings'].toDouble();
+
+                  logger.i("--------- $neddc---${map['allTransations']}");
 
                   return SafeArea(
                     child: LayoutBuilder(
@@ -128,12 +134,28 @@ class BHomeScreen extends StatelessWidget {
                                     SizedBox(
                                       height: constraints.maxHeight * 0.02,
                                     ),
-                                    Text(
-                                      'Category Balance',
-                                      style: kJakartaBodyBold.copyWith(
-                                          fontSize: constraints.maxWidth * 0.05,
-                                          overflow: TextOverflow.ellipsis,
-                                          fontWeight: FontWeight.w200),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Text(
+                                          'Category Balance',
+                                          style: kJakartaBodyBold.copyWith(
+                                              fontSize:
+                                                  constraints.maxWidth * 0.05,
+                                              overflow: TextOverflow.ellipsis,
+                                              fontWeight: FontWeight.w200),
+                                        ),
+                                        IconButton(
+                                            onPressed: () {
+                                              Get.to(ChartScreen(
+                                                income: neddc,
+                                                expenses: expen,
+                                                netamount: savin,
+                                              ));
+                                            },
+                                            icon: const Icon(Icons.pie_chart))
+                                      ],
                                     ),
                                     SizedBox(
                                       height: constraints.maxHeight * 0.02,
@@ -237,7 +259,7 @@ class BHomeScreen extends StatelessWidget {
                                                                   itemBuilder:
                                                                       (context,
                                                                           index) {
-                                                                            //transations card
+                                                                    //transations card
                                                                     return TransationsCards(
                                                                       dateTime: formatDate(list[index]
                                                                               [
@@ -297,8 +319,8 @@ class BlanceGreencard extends StatelessWidget {
         Container(
           width: constraints.maxWidth,
           height: orientation == Orientation.portrait
-              ? constraints.maxHeight * 0.25
-              : constraints.maxHeight * 0.6,
+              ? constraints.maxHeight * 0.22
+              : constraints.maxHeight * 0.4,
           decoration: BoxDecoration(
             color: Theme.of(context).primaryColor,
             borderRadius: const BorderRadius.all(

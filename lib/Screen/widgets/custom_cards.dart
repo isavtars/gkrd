@@ -44,7 +44,7 @@ class BlanceCard extends StatelessWidget {
                 child: Text(
                   cardTitle,
                   style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 18,
                       color: Theme.of(context).primaryColor,
                       fontWeight: FontWeight.w500),
                 ),
@@ -61,7 +61,7 @@ class BlanceCard extends StatelessWidget {
                     Text(
                       cardBalance,
                       style: const TextStyle(
-                          fontSize: 22, fontWeight: FontWeight.w500),
+                          fontSize: 18, fontWeight: FontWeight.w500),
                     ),
                   ],
                 ),

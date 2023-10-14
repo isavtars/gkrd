@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:gkrd/Screen/Dashboard/Screen/dashboard_screen.dart';
 import 'package:gkrd/Screen/widgets/custom_buttons.dart';
 
 import '../../styles/color.dart';
@@ -61,12 +63,21 @@ class _PlanningScreeenState extends State<PlanningScreeen> {
                                   SizedBox(
                                     height: constraints.maxHeight * 0.03,
                                   ),
-                                  const Text(
-                                    'Planning',
-                                    textAlign: TextAlign.start,
-                                    style: TextStyle(
-                                        fontSize: 28,
-                                        fontWeight: FontWeight.w400),
+                                  Row(
+                                    children: [
+                                      IconButton(
+                                          onPressed: () {
+                                            Get.to(const Dashboard());
+                                          },
+                                          icon: const Icon(Icons.arrow_back)),
+                                      const Text(
+                                        'Planning',
+                                        textAlign: TextAlign.start,
+                                        style: TextStyle(
+                                            fontSize: 28,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                    ],
                                   ),
                                   SizedBox(
                                     height: constraints.maxHeight * 0.02,
@@ -259,7 +270,7 @@ class _PlanningScreeenState extends State<PlanningScreeen> {
               ),
             ],
           ),
-  const SizedBox(
+          const SizedBox(
             height: 10,
           ),
           //collected funds
@@ -286,7 +297,7 @@ class _PlanningScreeenState extends State<PlanningScreeen> {
               ),
             ],
           ),
-  const SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Align(

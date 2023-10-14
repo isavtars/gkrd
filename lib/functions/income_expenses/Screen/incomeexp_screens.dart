@@ -10,8 +10,11 @@ import '../../../styles/color.dart';
 
 import '../../Reminders/widgets/drope_textedits.dart';
 import 'add_incexp_caterogies.dart';
+import 'algortm.dart';
 import 'expenss_add_screen.dart';
 import 'income_add_screen.dart';
+
+enum SortOption { latest, income, expense, bigamount, smallamount }
 
 final FirebaseAuth auth = FirebaseAuth.instance;
 DatabaseReference sref =
@@ -37,6 +40,8 @@ class _IncomeExpensesState extends State<IncomeExpenses> {
   String dropeablevalue = "Day";
   DateTime startDate = DateTime(2080, 6, 24);
   DateTime endDate = DateTime(2080, 6, 24).add(const Duration(days: 1));
+
+  SortOption selectedSortOption = SortOption.latest;
 
   void updateDateRange() {
     DateTime now = DateTime.now();
@@ -111,7 +116,11 @@ class _IncomeExpensesState extends State<IncomeExpenses> {
                                       updateDateRange();
                                     });
                                   }),
-                                  const Text("SelectedDate and Years ")
+                                  IconButton(
+                                      onPressed: () {
+                                        sortBottomsheet(context);
+                                      },
+                                      icon: const Icon(Icons.sort))
                                 ],
                               ),
                               const SizedBox(
@@ -206,6 +215,91 @@ class _IncomeExpensesState extends State<IncomeExpenses> {
       })),
       bottomSheet: const BottomSheet(),
     );
+  }
+
+  Future<dynamic> sortBottomsheet(BuildContext context) {
+    return showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text(
+                  'Sorting data',
+                  style: kJakartaBodyBold.copyWith(
+                      fontWeight: FontWeight.w600, fontSize: 20),
+                ),
+                ListTile(
+                  title: const Text('Latest'),
+                  leading: Radio(
+                    value: SortOption.latest,
+                    groupValue: selectedSortOption,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedSortOption = value!;
+                      });
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+                ListTile(
+                  title: const Text('Income'),
+                  leading: Radio(
+                    value: SortOption.income,
+                    groupValue: selectedSortOption,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedSortOption = value!;
+                      });
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+                ListTile(
+                  title: const Text('Expenses'),
+                  leading: Radio(
+                    value: SortOption.expense,
+                    groupValue: selectedSortOption,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedSortOption = value!;
+                      });
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+                ListTile(
+                  title: const Text('large Amount'),
+                  leading: Radio(
+                    value: SortOption.bigamount,
+                    groupValue: selectedSortOption,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedSortOption = value!;
+                      });
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+                ListTile(
+                  title: const Text('Short Amount'),
+                  leading: Radio(
+                    value: SortOption.smallamount,
+                    groupValue: selectedSortOption,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedSortOption = value!;
+                      });
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+              ],
+            ),
+          );
+        });
   }
 
   Container displaycontener(
